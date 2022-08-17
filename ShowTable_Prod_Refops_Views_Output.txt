@@ -1,0 +1,1852 @@
+--*******************************************
+
+REPLACE MACRO prod_refops_views.M_APS_Inventory (Begin_Date DATE, End_Date DATE) AS
+(
+-- Select to pull tank volumes
+SELECT	
+	CASE 
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'tk11.vol_ppl' THEN 'T11'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'tk12.vol_ppl' THEN 'T12'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'tk18.vol_ppl' THEN 'T18'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'blmfld_tnk1028.barrels' THEN 'T28'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'blmfld_tnk1031.barrels' THEN 'T31'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'tk35.vol_ppl' THEN 'T35'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'montezuma_TNKg1.barrels' THEN 'T01'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'montezuma_TNKg2.barrels' THEN 'T02'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'BISTI_tnk973.barrels' THEN 'T973'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'BISTI_tnk1509.barrels' THEN 'T1509'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'BISTI_tnk1510.barrels' THEN 'T1510'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'STRLKREV_TNK712.barrels' THEN 'T712'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'Starlake_tnk997.barrels' THEN 'T997'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'LYBRK_TNK1300.barrels' THEN 'T1300'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'LYBRK_TNK1311.barrels' THEN 'T1311'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'hospah_tnk1501.barrels' THEN 'T960'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'Gallup_TNK101.barrels101' THEN 'T101'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'Gallup_TNK102.barrels102' THEN 'T102'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'msqt_tnk7112.barrels' THEN 'T7112'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'yucca_tnk7212.barrels' THEN 'T7212'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'tsta_tnk211.barrels' THEN 'TK211'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'tsta_tnk212.barrels' THEN 'T212'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'CR1_tnk411.barrels' THEN 'T411'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'CR1_tnk412.barrels' THEN 'T412'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'HWY285_tnk311.barrels' THEN 'T311'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'HWY285_tnk312.barrels' THEN 'T312'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'MSN_TNK111.barrels' THEN 'T111'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'MSN_TNK112.barrels' THEN 'T112'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'MSN_TNK113.barrels' THEN 'T113'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'MSNE_TNK3111.barrels' THEN 'T3111'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'MSNE_TNK3112.barrels' THEN 'T3112'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'jkrb_TNK3511.barrels' THEN 'T3511'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'jkrb_TNK3512.barrels' THEN 'T3512'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'jkrb_TNK3513.barrels' THEN 'T3513'
+		WHEN pi.ref_prod_location = 'Bloomfield' AND pi.tag_id = 'jkrb_TNK3514.barrels' THEN 'T3514'
+		WHEN pi.ref_prod_location = 'El Paso Refinery' AND pi.tag_id = 'TK069.VOL' THEN 'T069'
+		WHEN pi.ref_prod_location = 'El Paso Refinery' AND pi.tag_id = 'TK190.VOL' THEN 'T190'		
+		WHEN pi.ref_prod_location = 'El Paso Refinery' AND pi.tag_id = 'TK191.VOL' THEN 'T191'
+		WHEN pi.ref_prod_location = 'El Paso Refinery' AND pi.tag_id = 'TK192.VOL' THEN 'T192'
+		WHEN pi.ref_prod_location = 'El Paso Refinery' AND pi.tag_id = 'TK137.VOL' THEN 'T137'
+		WHEN pi.ref_prod_location = 'El Paso Refinery' AND pi.tag_id = 'TK210.VOL' THEN 'T210'
+		WHEN pi.ref_prod_location = 'El Paso Refinery' AND pi.tag_id = 'TK211.VOL' THEN 'T211'
+		WHEN pi.ref_prod_location = 'El Paso Refinery' AND pi.tag_id = 'T4118.VOL' THEN 'T4118'
+		WHEN pi.ref_prod_location = 'El Paso Refinery' AND pi.tag_id = 'TK133.VOL' THEN 'T133'
+		ELSE PI.Tag_ID
+	END AS "Tank"
+	,CAST('VOL' AS VARCHAR(5)) AS Component_Name, tag_value AS "Results_Value"
+	,CAST(CAST(Trans_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP(0))  AS DateTimeSampled
+FROM	prod_refops_views.PI
+INNER JOIN
+	(SELECT	ref_Prod_Location, tag_id, trans_hour, trans_min, 
+		MAX(trans_date) AS MaxDateSampled
+	FROM	prod_refops_views.PI
+	WHERE trans_date BETWEEN :Begin_Date AND :End_Date
+		AND ref_prod_location IN ('Bloomfield','El Paso Refinery')
+		AND trans_hour = 6
+		AND trans_min = 0
+		AND tag_id IN 
+			(
+			'montezuma_tnkg1.barrels','montezuma_tnkg2.barrels','tk11.vol_ppl','tk12.vol_ppl'
+			,'tk18.vol_ppl','blmfld_tnk1028.barrels','blmfld_tnk1031.barrels','tk35.vol_ppl','gallup_tnk101.barrels101'
+			,'gallup_tnk102.barrels102','hospah_tnk1501.barrels','lybrk_tnk1300.barrels','lybrk_tnk1311.barrels'
+			,'strlkrev_tnk712.barrels','starlake_tnk997.barrels','msqt_tnk7112.barrels','yucca_tnk7212.barrels'
+			,'msn_tnk111.barrels','msn_tnk112.barrels','msn_tnk113.barrels','msne_tnk3111.barrels'
+			,'msne_tnk3112.barrels','tsta_tnk211.barrels','tsta_tnk212.barrels','cr1_tnk411.barrels','cr1_tnk412.barrels'
+			,'hwy285_tnk311.barrels','hwy285_tnk312.barrels','jkrb_tnk3511.barrels','jkrb_tnk3512.barrels','jkrb_tnk3513.barrels'
+			,'jkrb_tnk3514.barrels','bisti_tnk973.barrels','bisti_tnk1509.barrels','bisti_tnk1510.barrels','TK069.VOL'
+			,'TK190.VOL','TK191.VOL','TK192.VOL','TK137.VOL','TK210.VOL','TK211.VOL','T4118.VOL','TK133.VOL'			
+			)
+	GROUP BY ref_prod_location, tag_id, trans_hour, trans_min)  AS tmpMaxPIDate 
+ON PI.Ref_Prod_Location = tmpMaxPIDate.Ref_Prod_Location
+	AND PI.trans_date = tmpMaxPIDate.MaxDateSampled
+	AND PI.Tag_ID = tmpMaxPIDate.Tag_ID	
+	AND PI.trans_hour = tmpMaxPIDate.trans_hour
+	AND PI.trans_min = tmpMaxPIDate.trans_min
+
+UNION ALL
+
+-- Select to pull API gravity
+SELECT
+	CASE
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 11' THEN 'T11'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 12' THEN 'T12'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 18' THEN 'T18'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 28' THEN 'T28'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 31' THEN 'T31'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 35' THEN 'T35'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T G-1' THEN 'T01'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T G-2' THEN 'T02'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 973' THEN 'T973'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 1509BST' THEN 'T1509'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 1510BST' THEN 'T1510'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 997C' THEN 'T997'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T-712' THEN 'T712'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 1300' THEN 'T1300'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 1311' THEN 'T1311'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 960' THEN 'T960'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T0069' THEN 'T069'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T0137' THEN 'T137'		
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T0190' THEN 'T190'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T0191' THEN 'T191'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T0192' THEN 'T192'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T0210' THEN 'T210'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T0211' THEN 'T211'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T0133' THEN 'T133'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T4118' THEN 'T4118'
+		WHEN master.ref_prod_location = 'Gallup' AND master_code = 'Tk 101' THEN 'T101'
+		WHEN master.ref_prod_location = 'Gallup' AND master_code = 'Tk 102' THEN 'T102'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '7112' THEN 'T7112'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '7212' THEN 'T7212'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '211' THEN 'TK211'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '212' THEN 'T212'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '411' THEN 'T411'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '412' THEN 'T412'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '311' THEN 'T311'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '312' THEN 'T312'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '111' THEN 'T111'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = 'M-112' THEN 'T112'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = 'M-113' THEN 'T113'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '3111' THEN 'T3111'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '3112' THEN 'T3112'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '3511' THEN 'T3511'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '3512' THEN 'T3512'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '3513' THEN 'T3513'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '3514' THEN 'T3514'
+--		ELSE master_code
+	END AS Tank
+	,'API' AS Component_Name
+	,Density AS Results_Value
+	,CAST(CAST(Eff_Date AS DATE FORMAT 'YYYY-MM-DD')||' 23:59:00' AS TIMESTAMP(0))  AS DateTimeSampled
+FROM prod_refops_views.Tank
+INNER JOIN prod_refops_views.master
+	ON tank.ref_prod_location = master.ref_prod_location
+		AND tank.tank_id = master.master_id
+INNER JOIN
+	(
+	SELECT ref_prod_location, tank_id, MAX(eff_Date) AS MaxEffDate
+	FROM prod_refops_views.tank
+	WHERE ref_prod_location IN ('Bloomfield','El Paso Refinery','Gallup','Mason')
+		AND eff_date BETWEEN :Begin_Date AND :End_Date
+	GROUP BY ref_prod_location, tank_id
+	) AS tmpMaxTankDate
+	ON tank.ref_prod_location = tmpMaxTankDate.ref_prod_location
+		AND tank.tank_id = tmpMaxTankDate.tank_id
+		AND tank.eff_date = tmpMaxTankDate.MaxEffDate
+WHERE tank IS NOT NULL
+
+UNION ALL
+
+-- Select to pull BSW (_WTR)
+SELECT
+	CASE
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 11' THEN 'T11'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 12' THEN 'T12'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 18' THEN 'T18'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 28' THEN 'T28'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 31' THEN 'T31'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 35' THEN 'T35'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T G-1' THEN 'T01'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T G-2' THEN 'T02'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 973' THEN 'T973'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 1509BST' THEN 'T1509'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 1510BST' THEN 'T1510'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 997C' THEN 'T997'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T-712' THEN 'T712'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 1300' THEN 'T1300'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 1311' THEN 'T1311'
+		WHEN master.ref_prod_location = 'Bloomfield' AND master_code = 'T 960' THEN 'T960'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T0069' THEN 'T069'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T0137' THEN 'T137'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T0190' THEN 'T190'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T0191' THEN 'T191'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T0192' THEN 'T192'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T0210' THEN 'T210'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T0211' THEN 'T211'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T0133' THEN 'T133'
+		WHEN master.ref_prod_location = 'El Paso Refinery' AND master_code = 'T4118' THEN 'T4118'
+		WHEN master.ref_prod_location = 'Gallup' AND master_code = 'Tk 101' THEN 'T101'
+		WHEN master.ref_prod_location = 'Gallup' AND master_code = 'Tk 102' THEN 'T102'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '7112' THEN 'T7112'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '7212' THEN 'T7212'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '211' THEN 'TK211'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '212' THEN 'T212'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '411' THEN 'T411'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '412' THEN 'T412'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '311' THEN 'T311'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '312' THEN 'T312'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '111' THEN 'T111'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = 'M-112' THEN 'T112'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = 'M-113' THEN 'T113'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '3111' THEN 'T3111'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '3112' THEN 'T3112'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '3511' THEN 'T3511'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '3512' THEN 'T3512'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '3513' THEN 'T3513'
+		WHEN master.ref_prod_location = 'Mason' AND master_code = '3514' THEN 'T3514'
+--		ELSE master_code
+	END AS Tank
+	,'_WTR' AS Component_Name
+	,BSW AS Results_Value
+	,CAST(CAST(Eff_Date AS DATE FORMAT 'YYYY-MM-DD')||' 23:59:00' AS TIMESTAMP(0))  AS DateTimeSampled
+FROM prod_refops_views.Tank
+INNER JOIN prod_refops_views.master
+	ON tank.ref_prod_location = master.ref_prod_location
+		AND tank.tank_id = master.master_id
+INNER JOIN
+	(
+	SELECT ref_prod_location, tank_id, MAX(eff_Date) AS MaxEffDate
+	FROM prod_refops_views.tank
+	WHERE ref_prod_location IN ('Bloomfield','El Paso Refinery','Gallup','Mason')
+		AND eff_date BETWEEN :Begin_Date AND :End_Date
+	GROUP BY ref_prod_location, tank_id
+	) AS tmpMaxTankDate
+	ON tank.ref_prod_location = tmpMaxTankDate.ref_prod_location
+		AND tank.tank_id = tmpMaxTankDate.tank_id
+		AND tank.eff_date = tmpMaxTankDate.MaxEffDate
+WHERE tank IS NOT NULL
+
+UNION ALL
+
+-- Select to pull Aneth volumes
+SELECT	
+	CASE
+		WHEN terminal.product_id = 10013 THEN 'T1431'
+		WHEN terminal.product_id = 10014 THEN 'T1432'
+		WHEN terminal.product_id = 10258 THEN 'T1430'
+		ELSE terminal.Product_ID
+	END AS Tank
+	,'VOL' AS Component_Name
+	,Net_Quantity AS Results_Value
+	,CAST(CAST(Eff_Date+1 AS DATE FORMAT 'YYYY-MM-DD')||' 05:00:00' AS TIMESTAMP(0))  AS DateTimeSampled
+FROM prod_refops_views.Terminal
+INNER JOIN
+	(
+	SELECT ref_prod_location, product_id, MAX(eff_Date) AS MaxEffDate
+	FROM prod_refops_views.terminal
+	WHERE ref_prod_location = 'Aneth'
+		AND eff_date BETWEEN :Begin_Date AND :End_Date
+	GROUP BY ref_prod_location, product_id
+	) AS tmpMaxTerminalDate
+	ON terminal.ref_prod_location = tmpMaxTerminalDate.ref_prod_location
+		AND terminal.product_id = tmpMaxTerminalDate.product_id
+		AND terminal.eff_date = tmpMaxTerminalDate.MaxEffDate
+WHERE tank IS NOT NULL
+
+UNION ALL
+
+-- Select to pull Wink volume, API and BSW
+SELECT	Tank
+	,CASE 
+		WHEN APSCode = 'BSW' THEN '_WTR' 
+		ELSE APSCode
+	END AS Component_Name
+	,TankValue AS Results_Value, ReadingDateTime AS DateTimeSampled
+FROM prod_refops_views.aps_km_inventory
+WHERE ReadingDateTime = CAST(CAST(:End_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP(0))
+
+ORDER BY 1,2
+
+;);
+--------------------------------------------------------------------------------
+
+REPLACE MACRO prod_refops_views.M_APS_Movements (Begin_Date DATE, End_Date DATE) AS
+(
+SELECT 
+                PipelineRoute, "Source"||'to'||Destination AS Label
+                ,CAST(SUM(flow) AS DECIMAL(10,0)) AS Quantity, SUM(flow)/SUM(Points) AS Rate
+                ,CAST(CAST(:Begin_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) AS StartDateTime
+                ,CAST(CAST(:End_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) AS EndDateTime
+                ,CASE 
+                                WHEN PipelineRoute = 'ANEBIS' THEN 'Aneth'
+                                WHEN PipelineRoute = 'BLOBIS' THEN 'Bloomfield'
+                                WHEN PipelineRoute = 'BISGAL' THEN 'Bisti'
+                                WHEN PipelineRoute = 'BISSTAR' THEN 'Bisti'
+                                WHEN PipelineRoute = 'STARHOS' THEN 'StarLake'
+                                WHEN PipelineRoute = 'HOSGAL' THEN 'Hospah'
+                                WHEN PipelineRoute = 'LYBSTAR' THEN 'Lybrook'
+                                WHEN PipelineRoute = 'YUCMES' THEN 'Mesquite'
+                                WHEN PipelineRoute = 'STARPEC' THEN 'StarLake'
+                                WHEN PipelineRoute = 'MESTEE' THEN 'Mesquite'
+                                WHEN PipelineRoute = 'H285TEE' THEN 'H285'
+                                WHEN PipelineRoute = 'CR1TEE' THEN 'CR1'
+                                WHEN PipelineRoute = 'TEEMAS' THEN 'Tee'
+                                WHEN PipelineRoute = 'MASPASO' THEN 'Mason'
+                                WHEN PipelineRoute = 'WINKMAS' THEN 'WinkStation'
+                                WHEN PipelineRoute = 'MASJACK' THEN 'Mason'
+				WHEN PipelineRoute = 'MOCANE' THEN 'MontezumaCreek'
+                END AS "Source"
+                ,CASE 
+                                WHEN PipelineRoute = 'ANEBIS' THEN 'Bisti'
+                                WHEN PipelineRoute = 'BLOBIS' THEN 'Bisti'
+                                WHEN PipelineRoute = 'BISGAL' THEN 'Gallup'
+                                WHEN PipelineRoute = 'BISSTAR' THEN 'StarLake'
+                                WHEN PipelineRoute = 'STARHOS' THEN 'Hospah'
+                                WHEN PipelineRoute = 'HOSGAL' THEN 'Gallup'
+                                WHEN PipelineRoute = 'LYBSTAR' THEN 'StarLake'
+                                WHEN PipelineRoute = 'YUCMES' THEN 'Mesquite'
+                                WHEN PipelineRoute = 'MESTEE' THEN 'Tee'
+                                WHEN PipelineRoute = 'H285TEE' THEN 'Tee'
+                                WHEN PipelineRoute = 'CR1TEE' THEN 'Tee'
+                                WHEN PipelineRoute = 'TEEMAS' THEN 'Mason'
+                                WHEN PipelineRoute = 'MASPASO' THEN 'ElPaso'
+                                WHEN PipelineRoute = 'WINKMAS' THEN 'Mason'
+                                WHEN PipelineRoute = 'MASJACK' THEN 'Jackrabbit'       
+				WHEN PipelineRoute = 'MOCANE' THEN 'Aneth'
+                END AS Destination
+FROM
+                (
+                SELECT 
+                                CASE 
+                                                WHEN tag_id = 'BISTI_RH852.FQT' THEN 'ANEBIS'
+                                                WHEN tag_id = 'BLMFLD_RM1032.FQT' THEN 'BLOBIS'
+                                                WHEN tag_id = 'BISTI_CZ842.FQT' THEN 'BISGAL'
+                                                WHEN tag_id = 'BISTI_SJ822.FQT' THEN 'BISSTAR'
+                                                WHEN tag_id = 'LYBRK_M1393.FQT' THEN 'BISSTAR'
+                                                WHEN tag_id = 'LYBRK_M1394.FQT' THEN 'BISSTAR'
+                                                WHEN tag_id = 'Starlake_DM742.FQT' THEN 'STARHOS'
+                                                WHEN tag_id = 'HOSPAH_DM1532.FQT' THEN 'HOSGAL'
+                                                WHEN tag_id = 'LYBRK_M1393.FQT' THEN 'LYBSTAR'
+                                                WHEN tag_id = 'LYBRK_M1394.FQT' THEN 'LYBSTAR'
+                                                WHEN tag_id = 'MSQT_RM7105.FQT' THEN 'YUCMES'
+                                                WHEN tag_id = 'MSQT_DM7191.FQT' THEN 'MESTEE'
+                                                WHEN tag_id = 'MSQT_DM7192.FQT' THEN 'MESTEE'
+                                                WHEN tag_id = 'HWY285_RM391.FQT' THEN 'H285TEE'
+                                                WHEN tag_id = 'HWY285_RM392.FQT' THEN 'H285TEE'
+                                                WHEN tag_id = 'CR1_RM491.FQT' THEN 'CR1TEE'
+                                                WHEN tag_id = 'CR1_RM492.FQT' THEN 'CR1TEE'
+                                                WHEN tag_id = 'TSTA_RM291.FQT' THEN 'TEEMAS'
+                                                WHEN tag_id = 'TSTA_RM292.FQT' THEN 'TEEMAS'
+                                                WHEN tag_id = 'HOLD' THEN 'MASPASO'
+                                                WHEN tag_id = 'HOLD' THEN 'WINKMAS'
+                                                WHEN tag_id = 'MSNE_M3191.FQT' THEN 'MASJACK'
+                                                WHEN tag_id = 'MSNE_M3192.FQT' THEN 'MASJACK'
+						WHEN tag_id = 'MONTEZUMA_Act9004.FQT' THEN 'MOCANE'
+						WHEN tag_id = 'MONTEZUMA_Act9005.FQT' THEN 'MOCANE'
+                                END AS PipelineRoute
+                                ,CASE 
+                                                WHEN tag_id = 'BISTI_RH852.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'BLMFLD_RM1032.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'BISTI_CZ842.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'BISTI_SJ822.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'LYBRK_M1393.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'LYBRK_M1394.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'MSQT_RM7105.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'Starlake_DM742.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'HOSPAH_DM1532.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'LYBRK_M1393.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'LYBRK_M1394.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'MSQT_DM7191.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'MSQT_DM7192.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'HWY285_RM391.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'HWY285_RM392.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'CR1_RM491.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'CR1_RM492.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'TSTA_RM291.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'TSTA_RM292.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'MSNE_M3191.FQT' THEN SUM(flow)
+                                                WHEN tag_id = 'MSNE_M3192.FQT' THEN SUM(flow)
+						WHEN tag_id = 'MONTEZUMA_Act9004.FQT' THEN SUM(flow)
+						WHEN tag_id = 'MONTEZUMA_Act9005.FQT' THEN SUM(flow)
+                                END AS flow
+                                ,CASE 
+                                                WHEN tag_id = 'BISTI_RH852.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'BLMFLD_RM1032.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'BISTI_CZ842.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'BISTI_SJ822.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'LYBRK_M1393.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'LYBRK_M1394.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'MSQT_RM7105.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'Starlake_DM742.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'HOSPAH_DM1532.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'LYBRK_M1393.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'LYBRK_M1394.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'MSQT_DM7191.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'MSQT_DM7192.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'HWY285_RM391.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'HWY285_RM392.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'CR1_RM491.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'CR1_RM492.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'TSTA_RM291.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'TSTA_RM292.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'MSNE_M3191.FQT' THEN COUNT(flow)
+                                                WHEN tag_id = 'MSNE_M3192.FQT' THEN COUNT(flow)
+						WHEN tag_id = 'MONTEZUMA_Act9004.FQT' THEN COUNT(flow)
+						WHEN tag_id = 'MONTEZUMA_Act9005.FQT' THEN COUNT(flow)
+                                END AS Points
+                                ,tag_id
+                FROM
+                                (
+                                SELECT
+                                                tag_id, trans_date, trans_hour, trans_min
+                                                ,tag_value - SUM(tag_value) OVER (ORDER BY tag_id,trans_date,trans_hour, trans_min
+                                                                                                                                                ROWS BETWEEN 1 PRECEDING AND 1 PRECEDING) AS Flow
+                                FROM prod_refops_views.PI
+                                WHERE tag_id IN 
+                                                (
+                                                'BISTI_SJ822.FQT','LYBRK_M1393.FQT', 'LYBRK_M1394.FQT', 'BLMFLD_RM1032.FQT'
+                                                ,'CR1_RM491.FQT', 'CR1_RM492.FQT','HWY285_RM391.FQT', 'HWY285_RM392.FQT'
+                                                ,'HOSPAH_DM1532.FQT','LYBRK_M1393.FQT', 'MSNE_M3191.FQT'
+                                                ,'MSNE_M3192.FQT','MSQT_DM7191.FQT', 'MSQT_DM7192.FQT','Starlake_DM742.FQT'
+                                                ,'STRLKREV_DM791.FQT','STRLKREV_DM792.FQT','TSTA_RM291.FQT', 'TSTA_RM292.FQT'
+                                                ,'YUCCA_DM7291.FQT', 'YUCCA_DM7292.FQT', 'BISTI_RH852.FQT','MSQT_RM7105.FQT'
+												,'MONTEZUMA_Act9004.FQT', 'MONTEZUMA_Act9005.FQT'
+                                                )
+                                                AND 
+                                                                CAST(CAST(trans_date AS VARCHAR(10)) || ' ' || 
+                                                                                CASE WHEN trans_hour < 10 THEN '0'||CAST(trans_hour AS VARCHAR(2)) ELSE CAST(trans_hour AS VARCHAR(2)) END
+                                                                                                || ':' ||CASE WHEN trans_min < 10 THEN '0'||CAST(trans_min AS VARCHAR(2)) ELSE CAST(trans_min AS VARCHAR(2)) END 
+                                                                                                || ':00' AS TIMESTAMP(0)) 
+                                                                                BETWEEN CAST(CAST(:Begin_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) AND CAST(CAST(:End_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP)
+                                                AND trans_date BETWEEN :Begin_Date AND :End_Date
+                                                ) AS tmpPipelineMovements2
+                WHERE flow > 0 AND flow < 1000
+                GROUP BY Tag_Id
+                ) AS tmpPipelineMovements                
+WHERE PipelineRoute IS NOT NULL
+GROUP BY PipelineRoute
+
+ORDER BY PipelineRoute
+;);
+--------------------------------------------------------------------------------
+
+REPLACE MACRO prod_refops_views.M_APS_Movements2 (Begin_Date DATE, End_Date DATE) AS
+(
+
+SELECT 
+	CAST(CAST(:Begin_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP(0)) AS StartDateTime
+	,CAST(CAST(:End_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP(0)) AS EndDateTime
+	,tmpPITotalizer.route, OriginTank, DestinationTank
+	,CAST(SUM(flow)/1000 AS DECIMAL(10,1)) AS quantity
+	,CAST(SUM(flow)/COUNT(flow) AS DECIMAL(10,1)) AS rate
+FROM
+	(
+	SELECT trans_date, trans_hour, trans_min, route, SUM(flow_raw) AS flow
+	FROM
+		(
+		SELECT	trans_date, trans_hour, trans_min, route, flow_raw
+		FROM
+			(	
+			SELECT	trans_date, trans_hour, trans_min, tag_value, route, tag_id
+				 ,tag_value - SUM(tag_value) OVER (ORDER BY route, tag_id,trans_date,trans_hour, trans_min ROWS BETWEEN 1 PRECEDING AND 1 PRECEDING) AS Flow_Raw
+			FROM prod_refops_views.aps_vfp_route
+			LEFT OUTER JOIN prod_refops_views.pi
+				ON pi.tag_id = aps_vfp_route.pitag_totalizer
+			WHERE pi.trans_date BETWEEN :Begin_Date AND  :End_Date
+				AND CAST(CAST(trans_date AS VARCHAR(10)) || ' ' || 
+			 		CASE WHEN trans_hour < 10 THEN '0'||CAST(trans_hour AS VARCHAR(2)) ELSE CAST(trans_hour AS VARCHAR(2)) END || ':' ||
+					CASE WHEN trans_min < 10 THEN '0'||CAST(trans_min AS VARCHAR(2)) ELSE CAST(trans_min AS VARCHAR(2)) END 
+						|| ':00' AS TIMESTAMP(0)) 
+					BETWEEN CAST(CAST(:Begin_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) AND CAST(CAST(:End_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP)
+			) AS tmpPITotalizer3
+		WHERE flow_raw > 0 
+			AND flow_raw < 1000
+		) AS tmpPITotalizer2
+	GROUP BY trans_date, trans_hour, trans_min, route
+	) AS tmpPITotalizer
+INNER JOIN
+	(
+	SELECT	trans_date, trans_hour, trans_min, MIN(tag_value) AS VFP_Value
+	,route, OriginTank, DestinationTank
+	FROM prod_refops_views.aps_vfp_xref
+	LEFT OUTER JOIN prod_refops_views.pi
+		ON pi.tag_id = aps_vfp_xref.pitag_route
+	WHERE tag_value < 0
+		AND pi.trans_date BETWEEN :Begin_Date AND  :End_Date
+		 AND CAST(CAST(trans_date AS VARCHAR(10)) || ' ' || 
+		 	CASE WHEN trans_hour < 10 THEN '0'||CAST(trans_hour AS VARCHAR(2)) ELSE CAST(trans_hour AS VARCHAR(2)) END || ':' ||
+			CASE WHEN trans_min < 10 THEN '0'||CAST(trans_min AS VARCHAR(2)) ELSE CAST(trans_min AS VARCHAR(2)) END 
+				|| ':00' AS TIMESTAMP(0)) 
+			BETWEEN CAST(CAST(:Begin_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) AND CAST(CAST(:End_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP)
+	GROUP BY trans_date, trans_hour, trans_min, route, OriginTank, DestinationTank
+	) AS tmpPIVFP
+ON tmpPITotalizer.trans_date = tmpPIVFP.trans_date
+	AND tmpPITotalizer.trans_hour = tmpPIVFP.trans_hour
+	AND tmpPITotalizer.trans_min = tmpPIVFP.trans_min
+	AND tmpPITotalizer.route = tmpPIVFP.route
+GROUP BY tmpPITotalizer.route, origintank, destinationtank
+ORDER BY tmpPITotalizer.route, origintank, destinationtank
+
+;);
+--------------------------------------------------------------------------------
+
+REPLACE MACRO prod_refops_views.M_APS_Movements_Wink (Begin_Date DATE, End_Date DATE) AS
+(
+
+SELECT CAST(NULL AS VARCHAR(1)) AS "#HEADER", NULL AS Sequence, NULL AS Dependent
+	,SUM(OriginQty/CAST(((StopDateTime - StartDateTime) MINUTE(4)) AS DECIMAL(10,1))) AS Rate
+	,SUM(CAST(OriginQty AS DECIMAL(15,4)))/1000 AS Quantity
+	,StartDateTime AS "Start Date/Time", StopDateTime AS "Stop Date/Time"
+	,'WINKPASO' AS "Pipeline Route", 'Quantity' AS "%|Quantity|Rate"
+	,MAX(CASE WHEN RowNumber =1 THEN OriginTank END) AS "Source Tank 1"
+	,MAX(CASE WHEN RowNumber =1 THEN CAST(OriginQty AS DECIMAL(15,4))/1000 END) AS "Source Value 1"
+	,MAX(CASE WHEN RowNumber =2 THEN OriginTank END) AS "Source Tank 2"
+	,MAX(CASE WHEN RowNumber =2 THEN CAST(OriginQty AS DECIMAL(15,4))/1000 END) AS "Source Value 2"
+	,CAST(NULL AS VARCHAR(20)) AS "Destination Tank 1", NULL AS "Destination Value 1"
+	,CAST(NULL AS VARCHAR(20)) AS "Destination Tank 2", NULL AS "Destination Value 2"
+	,CAST(NULL AS VARCHAR(20)) AS Batchid, 'WinktoElPaso' AS Label
+	,NULL AS "Prod Code", NULL AS "Start Link", NULL AS "Stop Link", NULL AS Color
+	,NULL AS "Prep (Hours)", NULL AS "Post (Hours)", NULL AS description, NULL AS comments
+	,'Wink' AS "Source", 'El Paso' AS Destination
+FROM
+	(	
+	SELECT 
+		ROW_NUMBER() OVER (PARTITION BY StartDateTime ORDER BY startdatetime) AS RowNumber
+		,OriginQty, StartDateTime, StopDateTime
+		,OriginTank
+	FROM prod_refops_views.aps_km_shipments
+	WHERE startdatetime >= CAST(CAST(:Begin_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) 
+		AND stopdatetime <= CAST(CAST(:End_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) 
+	) AS tmpWinkShipments
+GROUP BY StartDateTime, StopDateTime
+
+UNION ALL
+
+SELECT CAST(NULL AS VARCHAR(1)) AS "#HEADER", NULL AS Sequence, NULL AS Dependent
+	,Quantity/CAST(((StopDateTime - StartDateTime) MINUTE(4)) AS DECIMAL(10,1)) AS Rate
+	,CAST(Quantity AS DECIMAL(15,4))/1000 AS Quantity
+	,StartDateTime AS "Start Date/Time", StopDateTime AS "Stop Date/Time"
+	,PipelineRoute AS "Pipeline Route",'%' AS "%|Quantity|Rate"
+	,OriginTank1 AS "Source Tank 1", OriginQty1 AS "Source Value 1"
+	,OriginTank2 AS "Source Tank 2", OriginQty2 AS "Source Value 2"
+	,DestTank1 AS "Destination Tank 1", DestQty1 AS "Destination Value 1"
+	,DestTank2 AS "Destination Tank 2", DestQty2 AS "Destination Value 2"
+	,MovementId AS Batchid, 'WinktoElPaso' AS Label
+	,NULL AS "Prod Code", NULL AS "Start Link", NULL AS "Stop Link", NULL AS Color
+	,NULL AS "Prep (Hours)", NULL AS "Post (Hours)", NULL AS description, NULL AS comments
+	,'Wink' AS "Source", 'El Paso' AS Destination
+FROM prod_refops_views.aps_km_fwdshipments
+WHERE startdatetime >= CAST(CAST(:End_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) 
+
+UNION ALL
+
+SELECT '*' AS "#HEADER", NULL AS Sequence, NULL AS Dependent
+	,CAST(NULL AS DECIMAL(10,1))AS Rate
+	,CAST(NULL AS DECIMAL(15,4)) AS Quantity
+	,CAST(NULL AS TIMESTAMP(0)) AS "Start Date/Time", CAST(NULL AS TIMESTAMP(0)) AS "Stop Date/Time"
+	,CAST(NULL AS VARCHAR(7)) AS "Pipeline Route", CAST(NULL AS VARCHAR(8)) AS "%|Quantity|Rate"
+	,CAST(NULL AS VARCHAR(20)) AS "Source Tank 1"
+	,CAST(NULL AS DECIMAL(15,4)) AS "Source Value 1"
+	,CAST(NULL AS VARCHAR(20)) AS "Source Tank 2"
+	,CAST(NULL AS DECIMAL(15,4)) AS "Source Value 2"
+	,CAST(NULL AS VARCHAR(20)) AS "Destination Tank 1", NULL AS "Destination Value 1"
+	,CAST(NULL AS VARCHAR(20)) AS "Destination Tank 2", NULL AS "Destination Value 2"
+	,CAST(NULL AS VARCHAR(20)) AS Batchid, CAST(NULL AS VARCHAR(12)) AS Label
+	,NULL AS "Prod Code", NULL AS "Start Link", NULL AS "Stop Link", NULL AS Color
+	,NULL AS "Prep (Hours)", NULL AS "Post (Hours)", NULL AS description, NULL AS comments
+	,CAST(NULL AS VARCHAR(4)) AS "Source", CAST(NULL AS VARCHAR(7)) AS Destination
+FROM prod_refops_views.ref_product
+WHERE ref_prod_location = 'El Paso Refinery'
+	AND product_id = 0
+
+ORDER BY 1,6
+;);
+--------------------------------------------------------------------------------
+
+REPLACE MACRO prod_refops_views.M_APS_Receipts_Pipeline (Begin_Date DATE, End_Date DATE) AS
+(
+--  Select to pull Pipeline receipts
+SELECT CAST(LABEL AS VARCHAR(20)) AS Label, Location,ReceiptMethod, ReceiveVia, Code1, StartDate, EndDate
+	,SUM(Quantity) AS Quantity
+	,SUM(Rate) AS Rate
+	,CAST(NULL AS VARCHAR(10)) AS Tank
+FROM
+	(
+	SELECT 
+		CASE
+			WHEN tag_id = 'TSTA_BOPCO_SP.FQT221' THEN 'XTO'
+			WHEN tag_id = 'JKRB_OUTRG_CUSTODY1.FQT' THEN 'Targa'
+			WHEN tag_id = 'Starlake_RM722.FQT' THEN 'South Chaco'
+			WHEN tag_id = 'LYBRK_RM1304.FQT' THEN 'WhipTail 4-1'
+			WHEN tag_id = 'STARLAKE_WPX7_1.TOTALIZER_TOTAL' THEN 'WhipTail 7-1'
+			WHEN tag_id = 'HWY285_ACC.FQT' THEN 'ACC'
+			WHEN tag_id = 'CR1_RM403.FQT' THEN 'WG1'
+			WHEN tag_id = 'CR1_RM404.FQT' THEN 'WG2'
+			WHEN tag_id = 'HOLD' THEN 'JACKRABBIT1'
+			WHEN tag_id = 'JKRB_M3561.FQT' THEN 'JACKRABBIT2'
+			WHEN tag_id = 'JKRB_M3562.FQT' THEN 'JACKRABBIT2'
+			WHEN tag_id = 'BISTI_RH852.FQT' THEN 'RESOLUTE'
+			WHEN tag_id = 'WPX_NESCAVADA.FQT' THEN 'NEscavada'		
+		END AS Label
+		,CASE
+			WHEN tag_id = 'TSTA_BOPCO_SP.FQT221' THEN 'Tee Station'
+			WHEN tag_id = 'JKRB_OUTRG_CUSTODY1.FQT' THEN 'Jackrabbit Station'
+			WHEN tag_id = 'Starlake_RM722.FQT' THEN 'Starlake Station'
+			WHEN tag_id = 'LYBRK_RM1304.FQT' THEN 'Lybrook Station'
+			WHEN tag_id = 'STARLAKE_WPX7_1.TOTALIZER_TOTAL' THEN 'Starlake Station'
+			WHEN tag_id = 'HWY285_ACC.FQT' THEN '285 Station'
+			WHEN tag_id = 'CR1_RM403.FQT' THEN 'CR1 Station'
+			WHEN tag_id = 'CR1_RM404.FQT' THEN 'CR1 Station'
+			WHEN tag_id = 'HOLD' THEN 'Jackrabbit Station'
+			WHEN tag_id = 'JKRB_M3561.FQT' THEN 'Jackrabbit Station'
+			WHEN tag_id = 'JKRB_M3562.FQT' THEN 'Jackrabbit Station'
+			WHEN tag_id = 'BISTI_RH852.FQT' THEN 'Bisti Station'
+			WHEN tag_id = 'WPX_NESCAVADA.FQT' THEN 'Starlake Station'		
+		END AS Location
+		,'Pipeline' AS ReceiptMethod
+		,CASE
+			WHEN tag_id = 'TSTA_BOPCO_SP.FQT221' THEN 'XTO'
+			WHEN tag_id = 'JKRB_OUTRG_CUSTODY1.FQT' THEN 'TARGA'
+			WHEN tag_id = 'Starlake_RM722.FQT' THEN 'SCHACO'
+			WHEN tag_id = 'LYBRK_RM1304.FQT' THEN 'WHIPTAIL41'
+			WHEN tag_id = 'STARLAKE_WPX7_1.TOTALIZER_TOTAL' THEN 'WHIPTAIL71'
+			WHEN tag_id = 'HWY285_ACC.FQT' THEN 'ACC'
+			WHEN tag_id = 'CR1_RM403.FQT' THEN 'WG1'
+			WHEN tag_id = 'CR1_RM404.FQT' THEN 'WG2'
+			WHEN tag_id = 'HOLD' THEN 'JACKRABBIT1'
+			WHEN tag_id = 'JKRB_M3561.FQT' THEN 'JACKRABBIT2'
+			WHEN tag_id = 'JKRB_M3562.FQT' THEN 'JACKRABBIT2'
+			WHEN tag_id = 'BISTI_RH852.FQT' THEN 'RESOLUTE'
+			WHEN tag_id = 'WPX_NESCAVADA.FQT' THEN 'NESCAVADA'		
+		END AS ReceiveVia
+		,CASE
+			WHEN tag_id = 'TSTA_BOPCO_SP.FQT221' THEN 'MBC'
+			WHEN tag_id = 'JKRB_OUTRG_CUSTODY1.FQT' THEN 'LYB'
+			WHEN tag_id = 'Starlake_RM722.FQT' THEN 'LYB'
+			WHEN tag_id = 'LYBRK_RM1304.FQT' THEN 'LYB'
+			WHEN tag_id = 'STARLAKE_WPX7_1.TOTALIZER_TOTAL' THEN 'LYB'
+			WHEN tag_id = 'HWY285_ACC.FQT' THEN 'HST'
+			WHEN tag_id = 'CR1_RM403.FQT' THEN 'CR1'
+			WHEN tag_id = 'CR1_RM404.FQT' THEN 'CR1'
+			WHEN tag_id = 'BISTI_RH852.FQT' THEN 'RES'
+			WHEN tag_id = 'HOLD' THEN '???'
+			WHEN tag_id = 'JKRB_M3561.FQT' THEN '???'
+			WHEN tag_id = 'JKRB_M3562.FQT' THEN '???'
+			WHEN tag_id = 'WPX_NESCAVADA.FQT' THEN 'LYB'			
+		END AS Code1
+		,CAST(CAST(:Begin_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP(0)) AS StartDate
+		,CAST(CAST(:End_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP(0)) AS EndDate
+		,CAST(SUM(flow) AS DECIMAL(10,1)) AS Quantity
+		,quantity/COUNT(tag_id) AS Rate
+	FROM
+		(	
+		SELECT
+			tag_id, trans_date, trans_hour, trans_min
+			,tag_value - SUM(tag_value) OVER (ORDER BY tag_id,trans_date,trans_hour, trans_min
+									ROWS BETWEEN 1 PRECEDING AND 1 PRECEDING) AS Flow
+		FROM prod_refops_views.PI
+			WHERE tag_id IN ('TSTA_BOPCO_SP.FQT221','JKRB_OUTRG_CUSTODY1.FQT'
+				,'Starlake_RM722.FQT','LYBRK_RM1304.FQT','STARLAKE_WPX7_1.TOTALIZER_TOTAL'
+				,'HWY285_ACC.FQT','CR1_RM403.FQT','CR1_RM404.FQT','BISTI_RH852.FQT'
+				,'JKRB_M3561.FQT', 'JKRB_M3562.FQT','WPX_NESCAVADA.FQT')
+			AND 
+				CAST(CAST(trans_date AS VARCHAR(10)) || ' ' || 
+					CASE WHEN trans_hour < 10 THEN '0'||CAST(trans_hour AS VARCHAR(2)) ELSE CAST(trans_hour AS VARCHAR(2)) END
+						|| ':' ||CASE WHEN trans_min < 10 THEN '0'||CAST(trans_min AS VARCHAR(2)) ELSE CAST(trans_min AS VARCHAR(2)) END 
+						|| ':00' AS TIMESTAMP(0)) 
+					BETWEEN CAST(CAST(:Begin_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) AND CAST(CAST(:End_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP)
+			AND trans_date BETWEEN :Begin_Date AND :End_Date
+			AND tag_value > 0
+		) AS tmpFlow2
+	WHERE Flow > 0
+		AND flow < 1000
+	
+	GROUP BY location, tag_id
+	) AS tmpFinal
+GROUP BY Label, Location,ReceiptMethod, ReceiveVia, Code1, StartDate, EndDate
+
+ORDER BY 1,6
+
+;);
+--------------------------------------------------------------------------------
+
+REPLACE MACRO prod_refops_views.M_APS_Receipts_Truck (Begin_Date DATE, End_Date DATE) AS
+(
+-- Extra row commented out to support no data returned scenarios
+SELECT CAST('*' AS CHAR(1)) AS "#HEADER", CAST('111' AS VARCHAR(4)) AS "APPLICATION ID"
+	,CAST(NULL AS VARCHAR(50)) AS "MOVEMENT ID"
+	,NULL AS Label, NULL AS Crude, NULL AS Batch
+	,CAST(NULL AS VARCHAR(50)) AS Description
+	,NULL AS Comments
+	,CAST(NULL AS VARCHAR(20)) AS "*Location"
+	,CAST(NULL AS VARCHAR(20)) AS "Receive via", CAST(NULL AS VARCHAR(10)) AS "*Skid"
+	,CAST(NULL AS DECIMAL(10,1)) AS "*API", CAST(NULL AS DECIMAL(10,1)) AS "*Rate"
+	,CAST(NULL AS DECIMAL(10,3)) AS Quantity, CAST(NULL AS TIMESTAMP(0)) AS "Start Date/Time"
+	,CAST(NULL AS TIMESTAMP(0)) AS "Stop Date/Time", NULL AS Prep, NULL AS Post, NULL AS Pipeline
+	,CAST(NULL AS VARCHAR(3)) AS "Code 1", CAST(NULL AS DECIMAL(10,3)) AS "Composition 1"
+	,NULL AS "Code 2", NULL AS "Composition 2", CAST(NULL AS VARCHAR(20)) AS "*Tank"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T101_T102", CAST(NULL AS DECIMAL(12,3)) AS "T01_T02"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T111_T112_T113"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T1300", CAST(NULL AS DECIMAL(12,3)) AS "T1311"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T311_T312", CAST(NULL AS DECIMAL(12,3)) "T3111"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T3112", CAST(NULL AS DECIMAL(12,3)) AS "T3511"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T3512", CAST(NULL AS DECIMAL(12,3)) AS "T3513"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T3514", CAST(NULL AS DECIMAL(12,3)) AS "T411_T412"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T7112", CAST(NULL AS DECIMAL(12,3)) AS "T7212"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T1509_T1510",CAST(NULL AS DECIMAL(12,3)) AS "T712"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T212"
+	,CAST(NULL AS DECIMAL(12,3)) AS "TW3",CAST(NULL AS DECIMAL(12,3)) AS "TW7"
+	,CAST(NULL AS DECIMAL(12,3)) AS "TW8",CAST(NULL AS DECIMAL(12,3)) AS "TW26"
+	,CAST(NULL AS DECIMAL(12,3)) AS "TW27",CAST(NULL AS DECIMAL(12,3)) AS "TW28"
+	,CAST(NULL AS DECIMAL(12,3)) AS "TW29"
+FROM prod_refops_views.ref_product
+WHERE ref_prod_location = 'El Paso Refinery'
+	AND product_id = 0
+
+UNION ALL
+
+-- Code to pull data for KM Wink Receipts, both truck and pipeline
+SELECT 
+	CAST(NULL AS CHAR(1)) AS "#HEADER"
+	,CASE
+		WHEN ReceiveVia = 'TRUCK' THEN '111'
+		ELSE '112'
+	END AS "APPLICATION ID"
+	,Receiptlocation||'_'||ReceiveVia||Code1||'_'||CAST((startdatetime (FORMAT 'YYMMDDHHMISS')) AS VARCHAR(14))||'_'||Tank AS "MOVEMENT ID"
+	,NULL AS Label, NULL AS Crude, NULL AS Batch, CAST(NULL AS VARCHAR(50)) AS Description, NULL AS comments
+	,ReceiptLocation||' Station' AS "*Location", ReceiveVia AS "Receive via", CAST(NULL AS VARCHAR(10)) AS "*Skid"
+	,CAST(NULL AS DECIMAL(10,1)) AS "*API", TankQuantity/CAST(((StopDateTime - StartDateTime) MINUTE(4)) AS DECIMAL(10,1)) AS "*Rate"
+	,CAST(tankquantity AS DECIMAL(10,3))/1000 AS Quantity, StartDateTime AS "Start Date/Time"
+	,StopDateTime AS "Stop Date/Time", NULL AS Prep, NULL AS Post, NULL AS Pipeline
+	,Code1 AS "Code 1", CAST(tankquantity AS DECIMAL(10,3))/1000 AS "Composition 1"
+	,NULL AS "Code 2", NULL AS "Composition 2", Tank AS "*Tank"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T101_T102", CAST(NULL AS DECIMAL(12,3)) AS "T01_T02"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T111_T112_T113"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T1300", CAST(NULL AS DECIMAL(12,3)) AS "T1311"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T311_T312", CAST(NULL AS DECIMAL(12,3)) "T3111"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T3112", CAST(NULL AS DECIMAL(12,3)) AS "T3511"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T3512", CAST(NULL AS DECIMAL(12,3)) AS "T3513"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T3514", CAST(NULL AS DECIMAL(12,3)) AS "T411_T412"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T7112", CAST(NULL AS DECIMAL(12,3)) AS "T7212"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T1509_T1510",CAST(NULL AS DECIMAL(12,3)) AS "T712"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T212"
+	,CASE WHEN Tank = 'T3' THEN CAST(tankquantity AS DECIMAL(10,3))/1000 END AS "TW3"
+	,CASE WHEN Tank = 'T7' THEN CAST(tankquantity AS DECIMAL(10,3))/1000 END AS "TW7"
+	,CASE WHEN Tank = 'T8' THEN CAST(tankquantity AS DECIMAL(10,3))/1000 END AS "TW8"
+	,CASE WHEN Tank = 'T26' THEN CAST(tankquantity AS DECIMAL(10,3))/1000 END AS "TW26"
+	,CASE WHEN Tank = 'T27' THEN CAST(tankquantity AS DECIMAL(10,3))/1000 END AS "TW27"
+	,CASE WHEN Tank = 'T28' THEN CAST(tankquantity AS DECIMAL(10,3))/1000 END AS "TW28"
+	,CASE WHEN Tank = 'T29' THEN CAST(tankquantity AS DECIMAL(10,3))/1000 END AS "TW29"
+FROM prod_refops_views.aps_km_receipts
+WHERE receiptlocation = 'Wink'
+	AND startdatetime >= CAST(CAST(:Begin_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) 
+	AND stopdatetime <= CAST(CAST(:End_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) 
+	AND tankquantity > 0
+
+UNION ALL
+
+-- Code to pull data for KM Jacrabbit Receipts, both truck and pipeline
+SELECT 
+	CAST(NULL AS CHAR(1)) AS "#HEADER"
+	,CASE
+		WHEN ReceiveVia = 'TRUCK' THEN '111'
+		ELSE '112'
+	END AS "APPLICATION ID"
+	,Receiptlocation||'_'||ReceiveVia||Code1||'_'||CAST((startdatetime (FORMAT 'YYMMDDHHMISS')) AS VARCHAR(14)) AS "MOVEMENT ID"
+	,NULL AS Label, NULL AS Crude, NULL AS Batch, CAST(NULL AS VARCHAR(50)) AS Description, NULL AS comments
+	,ReceiptLocation||' Station' AS "*Location", ReceiveVia AS "Receive via", CAST(NULL AS VARCHAR(10)) AS "*Skid"
+	,CAST(NULL AS DECIMAL(10,1)) AS "*API", MAX(Quantity)/CAST(((StopDateTime - StartDateTime) MINUTE(4)) AS DECIMAL(10,1)) AS "*Rate"
+	,CAST(MAX(quantity) AS DECIMAL(10,3))/1000 AS Quantity, StartDateTime AS "Start Date/Time"
+	,StopDateTime AS "Stop Date/Time", NULL AS Prep, NULL AS Post, NULL AS Pipeline
+	,Code1 AS "Code 1", CAST(MAX(quantity) AS DECIMAL(10,3))/1000 AS "Composition 1"
+	,NULL AS "Code 2", NULL AS "Composition 2", CAST(NULL AS VARCHAR(20)) AS "*Tank"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T101_T102", CAST(NULL AS DECIMAL(12,3)) AS "T01_T02"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T111_T112_T113"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T1300", CAST(NULL AS DECIMAL(12,3)) AS "T1311"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T311_T312", CAST(NULL AS DECIMAL(12,3)) "T3111"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T3112", CAST(NULL AS DECIMAL(12,3)) AS "T3511"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T3512", CAST(NULL AS DECIMAL(12,3)) AS "T3513"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T3514", CAST(NULL AS DECIMAL(12,3)) AS "T411_T412"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T7112", CAST(NULL AS DECIMAL(12,3)) AS "T7212"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T1509_T1510",CAST(NULL AS DECIMAL(12,3)) AS "T712"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T212"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T3", CAST(NULL AS DECIMAL(12,3)) AS "T7"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T8", CAST(NULL AS DECIMAL(12,3)) AS "T26"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T27", CAST(NULL AS DECIMAL(12,3)) AS "T28"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T29"
+FROM prod_refops_views.aps_km_receipts
+WHERE receiptlocation = 'Jackrabbit'
+	AND startdatetime BETWEEN CAST(CAST(:Begin_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) 
+		AND CAST(CAST(:End_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) 
+HAVING MAX(quantity) > 0
+GROUP BY ReceiptLocation, ReceiveVia,StartDateTime,StopDateTime,Code1
+
+UNION ALL
+
+SELECT 
+	CASE 
+		WHEN Volume <= 0.5 THEN CAST('*' AS CHAR(1)) 
+		ELSE CAST(NULL AS CHAR(1)) 
+	END AS "#HEADER"
+	, '111' AS "APPLICATION ID"
+	,SUBSTR(location,1,LENGTH(location)-8)||'_'||skid||'_'||CAST((start_dttm_corr (FORMAT 'YYMMDDHHMISS')) AS VARCHAR(14))||'_'||Tank AS "MOVEMENT ID"
+	,NULL AS Label, NULL AS Crude, NULL AS Batch
+	,Company AS Description
+	,NULL AS Comments
+	,Location AS "*Location"	
+	,SUBSTR(location,1,LENGTH(location)-8)||'-'||skid AS "Receive via"
+	,Skid AS "*Skid"
+	,API_Corrected AS "*API", PumpRate_BPM AS "*Rate", Volume/1000 AS Quantity
+	,Start_Dttm_Corr AS "Start Date/Time", End_Dttm_Corr AS "Stop Date/Time"
+	,NULL AS Prep, NULL AS Post, NULL AS Pipeline
+	,APS_Assay_Code AS "Code 1", Volume/1000 AS "Composition 1"
+	,NULL AS "Code 2", NULL AS "Composition 2"
+	,Tank AS "*Tank"
+	,CASE WHEN tank = 'T101_T102' THEN volume/1000 ELSE NULL END AS "T101_T102"
+	,CASE WHEN tank = 'T01_T02' THEN volume/1000 ELSE NULL END AS "T01_T02"
+	,CASE WHEN tank = 'T111_T112_T113' THEN volume/1000 ELSE NULL END AS "T111_T112_T113"
+	,CASE WHEN tank = 'T1300' THEN volume/1000 ELSE NULL END AS "T1300"
+	,CASE WHEN tank = 'T1311' THEN volume/1000 ELSE NULL END AS "T1311"
+	,CASE WHEN tank = 'T311_T312' THEN volume/1000 ELSE NULL END AS "T311_T312"
+	,CASE WHEN tank = 'T3111' THEN volume/1000 ELSE NULL END AS "T3111"
+	,CASE WHEN tank = 'T3112' THEN volume/1000 ELSE NULL END AS "T3112"
+	,CASE WHEN tank = 'T3511' THEN volume/1000 ELSE NULL END AS "T3511"
+	,CASE WHEN tank = 'T3512' THEN volume/1000 ELSE NULL END AS "T3512"
+	,CASE WHEN tank = 'T3513' THEN volume/1000 ELSE NULL END AS "T3513"
+	,CASE WHEN tank = 'T3514' THEN volume/1000 ELSE NULL END AS "T3514"
+	,CASE WHEN tank = 'T411_T412' THEN volume/1000 ELSE NULL END AS "T411_T412"
+	,CASE WHEN tank = 'T7112' THEN volume/1000 ELSE NULL END AS "T7112"
+	,CASE WHEN tank = 'T7212' THEN volume/1000 ELSE NULL END AS "T7212"
+	,CASE WHEN tank = 'T1509_T1510' THEN volume/1000 ELSE NULL END AS "T1509_T1510"
+	,CASE WHEN tank = 'T712' THEN volume/1000 ELSE NULL END AS "T712"
+	,CASE WHEN tank = 'T212' THEN volume/1000 ELSE NULL END AS "T212"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T3",CAST(NULL AS DECIMAL(12,3)) AS "T7"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T8",CAST(NULL AS DECIMAL(12,3)) AS "T26"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T27",CAST(NULL AS DECIMAL(12,3)) AS "T28"
+	,CAST(NULL AS DECIMAL(12,3)) AS "T29"
+
+FROM
+	(
+	--Mason and Jackrabbit Trucks.  Tank assigned by VFP via Microload_XREF
+	SELECT tmpFinal.Location, tmpFinal.ReceiptMethod, Skid, Start_Dttm_Corr, End_Dttm_Corr, Volume
+		,API_Corrected, BSW, tmpFinal.Tank, PumpRate_BPM, APS_Assay_Code, APS_Assay_Name,Company
+	FROM
+		(
+		SELECT	Microload.Location
+			,'Truck' AS ReceiptMethod
+			,CAST(Microload.Skid AS VARCHAR(10)) AS Skid, Company
+			--All times expressed as Mountain Time
+			,CASE 
+				WHEN time_zone_source = 'Mountain' THEN microload.Start_Dttm
+				WHEN time_zone_source = 'Central' THEN microload.Start_Dttm - INTERVAL '1' HOUR
+			END AS Start_Dttm_Corr
+			,CASE 
+				WHEN time_zone_source = 'Mountain' THEN End_Dttm
+				WHEN time_zone_source = 'Central' THEN End_Dttm - INTERVAL '1' HOUR
+			END AS End_Dttm_Corr	
+			,CAST(Vol_Adjusted/DestTankNumb AS DECIMAL(12,3)) AS Volume
+			,API_Corrected, BSW
+			,Tanks AS Tank
+			,CAST((Vol_Adjusted/DestTankNumb)/
+				(CASE 
+					WHEN CAST(((end_dttm_corr - start_dttm_corr) MINUTE(4)) AS INTEGER)=0 
+					THEN 1 
+					ELSE CAST(((end_dttm_corr - start_dttm_corr) MINUTE(4)) AS INTEGER) 
+				END) 
+			AS DECIMAL(10,1)) AS PumpRate_BPM
+			,Start_Date
+		FROM prod_refops_views.Microload
+		INNER JOIN prod_refops_views.microload_xref
+		ON microload.location = microload_xref.location
+			AND microload.skid = microload_xref.skid
+		INNER JOIN prod_refops_views.pi
+		ON PI.Trans_Date = CAST((Start_Dttm_Corr + INTERVAL '7' MINUTE) AS DATE)
+		    AND PI.Trans_Hour = CAST(CAST(CAST((Start_Dttm_Corr + INTERVAL '7' MINUTE) AS FORMAT 'HH') AS CHAR(2)) AS INTEGER)
+		    AND PI.Trans_Min = CAST(CAST(CAST((Start_Dttm_Corr + INTERVAL '7' MINUTE) AS FORMAT 'MI') AS CHAR(2)) AS INTEGER)
+			AND pi.tag_id = microload_xref.tag_id
+		--Bug fix to handle skids offloading to 2 tanks simultaneously
+		INNER JOIN
+			(
+			SELECT	Microload.Location
+				,CAST(Microload.Skid AS VARCHAR(10)) AS Skid
+				,microload.start_dttm
+				--All times expressed as Mountain Time
+				,CASE 
+					WHEN time_zone_source = 'Mountain' THEN Start_Dttm
+					WHEN time_zone_source = 'Central' THEN Start_Dttm - INTERVAL '1' HOUR
+				END AS Start_Dttm_Corr2
+				,COUNT(*) AS DestTankNumb
+			FROM prod_refops_views.Microload
+			INNER JOIN prod_refops_views.microload_xref
+			ON microload.location = microload_xref.location
+				AND microload.skid = microload_xref.skid
+			INNER JOIN prod_refops_views.pi
+			ON PI.Trans_Date = CAST((Start_Dttm_Corr2 + INTERVAL '7' MINUTE) AS DATE)
+			    AND PI.Trans_Hour = CAST(CAST(CAST((Start_Dttm_Corr2 + INTERVAL '7' MINUTE) AS FORMAT 'HH') AS CHAR(2)) AS INTEGER)
+			    AND PI.Trans_Min = CAST(CAST(CAST((Start_Dttm_Corr2 + INTERVAL '7' MINUTE) AS FORMAT 'MI') AS CHAR(2)) AS INTEGER)
+			AND pi.tag_id = microload_xref.tag_id
+			WHERE start_dttm <> end_dttm
+				AND tag_value = -1
+				AND start_dttm BETWEEN CAST(CAST(:Begin_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) 
+					AND CAST(CAST(:End_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) 
+				AND Microload.location IN ('Mason Station','Jackrabbit Station')
+			GROUP BY microload.location, microload.skid, microload.start_dttm, start_dttm_corr2	
+			) AS tmpDestTankNumb
+		ON microload.location = tmpDestTankNumb.location
+			AND  microload.skid = tmpDestTankNumb.Skid
+			AND microload.Start_Dttm = tmpDestTankNumb.Start_Dttm
+		WHERE microload.start_dttm <> end_dttm
+			AND tag_value = -1
+			AND start_date BETWEEN :Begin_Date AND :End_Date
+			AND Microload.location IN ('Mason Station','Jackrabbit Station')
+
+		UNION ALL
+		
+		-- Microload skids at Lybrook, Mesquite, Yucca, CR1, 285 and Bisti trucks.  Tank assigned by CASE default		
+		SELECT	Microload.Location
+			,'Truck' AS ReceiptMethod
+			,CAST(Microload.Skid AS VARCHAR(10)) AS Skid, Company
+			--All times expressed as Mountain Time
+			,CASE 
+				WHEN time_zone_source = 'Mountain' THEN Start_Dttm
+				WHEN time_zone_source = 'Central' THEN Start_Dttm - INTERVAL '1' HOUR
+			END AS Start_Dttm_Corr
+			,CASE 
+				WHEN time_zone_source = 'Mountain' THEN End_Dttm
+				WHEN time_zone_source = 'Central' THEN End_Dttm - INTERVAL '1' HOUR
+			END AS End_Dttm_Corr	
+			,CAST(Vol_Adjusted AS DECIMAL(12,3)) AS Volume
+			,API_Corrected, BSW
+			,CASE
+				WHEN location = 'Lybrook Station' AND skid IN (3,4) THEN 'T1311'
+				WHEN location = 'Mesquite Station' THEN 'T7112'
+				WHEN location = 'Yucca Station' THEN 'T7212'
+				WHEN location = 'CR1 Station' THEN 'T411_T412'
+				WHEN location = '285 Station' THEN 'T311_T312'
+				WHEN location = 'Bisti Station' THEN 'T1509_T1510'
+			END AS Tank
+			,CAST(Vol_Adjusted/
+				(CASE 
+					WHEN CAST(((end_dttm_corr - start_dttm_corr) MINUTE(4)) AS INTEGER)=0 
+					THEN 1 
+					ELSE CAST(((end_dttm_corr - start_dttm_corr) MINUTE(4)) AS INTEGER) 
+				END) 
+			AS DECIMAL(10,1)) AS PumpRate_BPM
+			,Start_Date
+		FROM prod_refops_views.Microload
+		WHERE start_dttm <> end_dttm
+				AND start_dttm BETWEEN CAST(CAST(:Begin_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) 
+					AND CAST(CAST(:End_Date AS DATE FORMAT 'YYYY-MM-DD')||' 06:00:00' AS TIMESTAMP) 
+				AND location IN ('Lybrook Station','Mesquite Station','Yucca Station','CR1 Station','285 Station','Bisti Station')
+
+		UNION ALL
+		
+		-- Non Microload skids at Lybrook, Bisti and Aneth trucks.  Tank assigned by CASE default		
+		SELECT tmpAPI.location, 'Truck' AS ReceiptMethod, tmpAPI.skid
+			,CAST(NULL AS VARCHAR(50)) AS Company
+			,CAST(tmpAPI.trans_date AS TIMESTAMP(0)) AS Start_Dttm_Corr
+			,CAST(CAST(tmpAPI.trans_date AS VARCHAR(10)) || ' 23:59:59' AS TIMESTAMP(0)) AS End_Dttm_Corr
+			,CAST(SUM(flow) AS DECIMAL(12,3)) AS Volume
+			,AVG(tag_value) AS API_Corrected
+			,NULL AS BSW
+			,Tank
+			,Volume/COUNT(*) AS PumpRate_BPM
+			,tmpAPI.trans_date AS Start_Date
+		FROM
+			(
+			SELECT 
+					CASE
+						WHEN SUBSTR(tag_id,1,5) = 'Monte' THEN 'Aneth Station'
+						WHEN SUBSTR(tag_id,1,5) = 'Lybrk' THEN 'Lybrook Station'
+						WHEN SUBSTR(tag_id,1,5) = 'Bisti' THEN 'Bisti Station'
+					END AS Location
+					,CASE
+						WHEN SUBSTR(tag_id,7,6) = 'TSKID1' THEN '1'
+						WHEN SUBSTR(tag_id,7,6) = 'TSKID2' THEN '2'
+						WHEN SUBSTR(tag_id,14,4) = '9001' THEN '1'
+						WHEN SUBSTR(tag_id,14,4) = '9002' THEN '2'
+						WHEN SUBSTR(tag_id,14,4) = '9003' THEN '3'
+						WHEN SUBSTR(tag_id,1,5) = 'Bisti' THEN '1_2'
+					END AS Skid
+					,trans_date, trans_hour, trans_min, tag_value
+			FROM prod_refops_views.PI
+				WHERE tag_value > 0
+				AND tag_id IN ('LYBRK_TSKID1.API','LYBRK_TSKID2.API','BISTI_TR862.DI','MONTEZUMA_TRK9001.API'
+						,'MONTEZUMA_TRK9002.API','MONTEZUMA_TRK9003.API')
+			) AS tmpAPI
+		INNER JOIN
+			(
+			SELECT 
+					CASE
+						WHEN SUBSTR(tag_id,1,5) = 'Monte' THEN 'Aneth Station'
+						WHEN SUBSTR(tag_id,1,5) = 'Lybrk' THEN 'Lybrook Station'
+						WHEN SUBSTR(tag_id,1,5) = 'Bisti' THEN 'Bisti Station'
+					END AS Location
+					,'Truck' AS ReceiptMethod
+					,CASE
+						WHEN SUBSTR(tag_id,7,6) = 'TSKID1' THEN '1'
+						WHEN SUBSTR(tag_id,7,6) = 'TSKID2' THEN '2'
+						WHEN SUBSTR(tag_id,14,4) = '9001' THEN '1'
+						WHEN SUBSTR(tag_id,14,4) = '9002' THEN '2'
+						WHEN SUBSTR(tag_id,14,4) = '9003' THEN '3'
+						WHEN SUBSTR(tag_id,1,5) = 'Bisti' THEN '1_2'
+					END AS Skid
+					,CASE
+						WHEN SUBSTR(tag_id,7,6) = 'TSKID1' THEN 'T1300'
+						WHEN SUBSTR(tag_id,7,6) = 'TSKID2' THEN 'T1311'
+						WHEN SUBSTR(tag_id,1,5) = 'Monte' THEN 'T01_T02'
+						WHEN SUBSTR(tag_id,1,5) = 'Bisti' THEN 'T1509_T1510'
+					END AS Tank
+					,trans_date, trans_hour, trans_min, flow
+			FROM
+				(	
+				SELECT
+					tag_id, trans_date, trans_hour, trans_min
+					,tag_value - SUM(tag_value) OVER (ORDER BY tag_id,trans_date,trans_hour, trans_min
+											ROWS BETWEEN 1 PRECEDING AND 1 PRECEDING) AS Flow
+				FROM prod_refops_views.PI
+					WHERE trans_date BETWEEN :Begin_Date AND :End_Date
+					AND tag_value > 0
+					AND tag_id IN ('LYBRK_TSKID1.FQT','LYBRK_TSKID2.FQT','BISTI_TR862.FQT','MONTEZUMA_TRK9001.FQT'
+						,'MONTEZUMA_TRK9002.FQT','MONTEZUMA_TRK9003.FQT')
+				) AS tmpFlow2
+			WHERE Flow > 0
+				AND flow < 1000
+			) AS tmpFlow
+		ON tmpAPI.location=tmpFlow.Location
+			AND tmpAPI.skid=tmpFlow.Skid
+			AND tmpAPI.trans_date=tmpFlow.trans_date
+			AND tmpAPI.trans_hour=tmpFlow.trans_hour
+			AND tmpAPI.trans_min=tmpFlow.trans_min
+		GROUP BY tmpAPI.location, tmpAPI.skid, tmpAPI.trans_date, tank
+
+		UNION ALL
+
+		-- non Microload skids at Bloomfield.  Daily Total
+		SELECT	Microload.Location
+			,'Truck' AS ReceiptMethod
+			,CAST(Microload.Skid AS VARCHAR(10)) AS Skid
+			,CAST(NULL AS VARCHAR(50)) AS Company
+			--All times expressed as Mountain Time
+			,CASE 
+				WHEN time_zone_source = 'Mountain' THEN Start_Dttm
+				WHEN time_zone_source = 'Central' THEN Start_Dttm - INTERVAL '1' HOUR
+			END AS Start_Dttm_Corr
+			,CASE 
+				WHEN time_zone_source = 'Mountain' THEN End_Dttm
+				WHEN time_zone_source = 'Central' THEN End_Dttm - INTERVAL '1' HOUR
+			END AS End_Dttm_Corr	
+			,CAST(Vol_Adjusted AS DECIMAL(12,3)) AS Volume
+			,API_Corrected, BSW
+			,'TBLOOM' AS Tank
+		    ,CAST(Vol_Adjusted/CAST(((end_dttm_corr - start_dttm_corr) MINUTE(4)) AS INTEGER) AS DECIMAL(10,1)) AS PumpRate_BPM
+			,Start_Date
+		FROM prod_refops_views.Microload
+		WHERE start_dttm <> end_dttm
+			AND start_date BETWEEN :Begin_Date AND :End_Date
+			AND Microload.location IN ('Bloomfield Station')
+		) AS tmpFinal
+
+	LEFT OUTER JOIN prod_refops_views.microload_assay
+	ON CAST(tmpFinal.start_dttm_corr AS DATE) = microload_assay.eff_date
+		AND tmpFinal.Location = microload_assay.Location
+		AND tmpFinal.ReceiptMethod = Microload_Assay.Receipt_Method
+		AND tmpFinal.Tank = microload_assay.tank
+		AND tmpFinal.API_Corrected > microload_assay.API_Min
+		AND tmpFinal.API_Corrected < microload_assay.API_Max
+	) AS tmpTruckReceipts
+
+ORDER BY 15 DESC
+
+;);
+--------------------------------------------------------------------------------
+
+REPLACE MACRO prod_refops_views.M_Backcast_RefDetail (End_Date DATE, Ref_Prod_Location VARCHAR(20)) AS
+	(
+	SELECT  ref_prod_location, eff_date, prod_group_subcat1,prod_group_subcat2,prod_group_subcat4,
+		Actual_Production_MTD, Planned_Production_MTD, Planned_Price,
+		Production_Diff_MTD, Price_Diff_MTD, Actual_Production, Actual_Production_MTD_Avg
+	FROM prod_edw_base_views.backcast
+	WHERE eff_date = :End_Date
+	AND ref_prod_location = :Ref_Prod_Location
+	ORDER BY ref_prod_location, prod_group_subcat1,prod_group_subcat2,prod_group_subcat4,eff_date;
+	);
+--------------------------------------------------------------------------------
+
+REPLACE MACRO prod_refops_views.M_Blend_V3 (Begin_Date DATE, End_Date DATE) AS
+	(
+	EXEC prod_edw_base_views.m_blend_v3 (:Begin_Date,:End_Date)
+	;);
+--------------------------------------------------------------------------------
+
+REPLACE MACRO prod_refops_views.m_PPL_MBO_FUTR_TNK_VOLS_BS (eff_date1 date, TNK_CASE1 varchar(50), Ref_Prod_Location1 varchar(20), NoofDaysPPL1 integer, NoofDaysMBO1 integer) as 
+(
+	EXEC PROD_EDW_BASE_VIEWS.m_PPL_MBO_FUTR_TNK_VOLS_BS (:eff_date1,:TNK_CASE1,:Ref_Prod_Location1,:NoofDaysPPL1,:NoofDaysMBO1);
+);
+--------------------------------------------------------------------------------
+
+REPLACE MACRO prod_refops_views.m_PPL_MBO_FUTR_TNK_VOLS_FG (eff_date1 date, TNK_CASE1 varchar(50), Ref_Prod_Location1 varchar(20), NoofDaysPPL1 integer, NoofDaysMBO1 integer) as 
+(
+	EXEC PROD_EDW_BASE_VIEWS.m_PPL_MBO_FUTR_TNK_VOLS_FG (:eff_date1,:TNK_CASE1,:Ref_Prod_Location1,:NoofDaysPPL1,:NoofDaysMBO1);
+);
+--------------------------------------------------------------------------------
+
+REPLACE MACRO prod_refops_views.M_UEDC_ELP (Begin_Date DATE, End_Date DATE) AS
+	(
+
+SELECT ref_prod_location, trans_date,
+                CAST((FCC_Rate_Act_UEDC+RHEN_Rate_Act_UEDC+Alk_Rate_Act_UEDC+Butamer_Rate_Act_UEDC+NHT_Rate_Act_UEDC+
+                                DHT_Rate_Act_UEDC+JHT_Rate_Act_UEDC+JetMer_Rate_Act_UEDC+CGHT_Rate_Act_UEDC+BSU_Rate_Act_UEDC+
+                                BSUSplit_Rate_Act_UEDC+CPS_Crude_Rate_Act_UEDC+NO6_Crude_Rate_Act_UEDC) AS DECIMAL(10,4)) AS "Total_Rate_Act_UEDC",
+                
+                CAST((FCC_Rate_Plan_UEDC+RHEN_Rate_Plan_UEDC+Alk_Rate_Plan_UEDC+Butamer_Rate_Plan_UEDC+NHT_Rate_Plan_UEDC+
+                                DHT_Rate_Plan_UEDC+JHT_Rate_Plan_UEDC+JetMer_Rate_Plan_UEDC+CGHT_Rate_Plan_UEDC+BSU_Rate_Plan_UEDC+
+                                BSUSplit_Rate_Plan_UEDC+CPS_Crude_Rate_Plan_UEDC+NO6_Crude_Rate_Plan_UEDC) AS DECIMAL(10,4)) AS "Total_Rate_Plan_UEDC",
+                
+                CAST((Total_Rate_Act_UEDC - Total_Rate_Plan_UEDC)/Total_Rate_Plan_UEDC AS DECIMAL(10,4)) AS "Total_Process_Unit__P", 
+                                CAST(MAVG("Total_Process_Unit__P", 365,trans_date) AS DECIMAL(10,4)) AS "Total_Process_Unit__P_MAvg",
+                
+                CAST(1000*CPS_Crude_Rate_Act AS INTEGER) AS CPS_Crude_Rate_Act,
+                                CAST(1000*CPS_Crude_Rate_Plan AS INTEGER) AS CPS_Crude_Rate_Plan,
+                                CPS_Crude_Factor, 
+                                CASE WHEN CPS_Crude_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((CPS_Crude_Rate_Act - CPS_Crude_Rate_Plan)/CPS_Crude_Rate_Plan AS DECIMAL(10,4))
+                                END AS "CPS_Crude_UEDC__P",
+                                CAST(MAVG("CPS_Crude_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "CPS_Crude_UEDC__P_MAvg",
+                                CAST(1000*CPS_Crude_Rate_Act*CPS_Crude_Factor AS INTEGER) AS "CPS_Crude_Rate_Act_UEDC", 
+                                CAST(1000*CPS_Crude_Rate_Plan*CPS_Crude_Factor AS INTEGER) AS "CPS_Crude_Rate_Plan_UEDC",
+                
+                CAST(1000*NO6_Crude_Rate_Act AS INTEGER) AS NO6_Crude_Rate_Act, 
+                                CAST(1000*NO6_Crude_Rate_Plan AS INTEGER) AS NO6_Crude_Rate_Plan, 
+                                NO6_Crude_Factor, 
+                                CASE WHEN NO6_Crude_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((NO6_Crude_Rate_Act - NO6_Crude_Rate_Plan)/NO6_Crude_Rate_Plan AS DECIMAL(10,4))
+                                END AS "NO6_Crude_UEDC__P",
+                                CAST(MAVG("NO6_Crude_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "NO6_Crude_UEDC__P_MAvg",
+                                CAST(1000*NO6_Crude_Rate_Act*NO6_Crude_Factor AS INTEGER) AS "NO6_Crude_Rate_Act_UEDC", 
+                                CAST(1000*NO6_Crude_Rate_Plan*NO6_Crude_Factor AS INTEGER) AS "NO6_Crude_Rate_Plan_UEDC",
+
+                CAST(1000*FCC_Rate_Act AS INTEGER) AS FCC_Rate_Act, 
+                                CAST(1000*FCC_Rate_Plan AS INTEGER) AS FCC_Rate_Plan, 
+                                FCC_Factor, 
+                                CASE WHEN FCC_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((FCC_Rate_Act - FCC_Rate_Plan)/FCC_Rate_Plan AS DECIMAL(10,4))
+                                END AS "FCC_UEDC__P",
+                                CAST(MAVG("FCC_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "FCC_UEDC__P_MAvg",
+                                CAST(1000*FCC_Rate_Act*FCC_Factor AS INTEGER) AS "FCC_Rate_Act_UEDC", 
+                                CAST(1000*FCC_Rate_Plan*FCC_Factor AS INTEGER) AS "FCC_Rate_Plan_UEDC",
+
+                CAST(1000*Rhen_Rate_Act AS INTEGER) AS Rhen_Rate_Act, 
+                                CAST(1000*Rhen_Rate_Plan AS INTEGER) AS Rhen_Rate_Plan, 
+                                Rhen_Factor, 
+                                CASE WHEN Rhen_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((Rhen_Rate_Act - Rhen_Rate_Plan)/Rhen_Rate_Plan AS DECIMAL(10,4))
+                                END AS "Rhen_UEDC__P",
+                                CAST(MAVG("Rhen_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "Rhen_UEDC__P_MAvg",
+                                CAST(1000*Rhen_Rate_Act*Rhen_Factor AS INTEGER) AS "Rhen_Rate_Act_UEDC", 
+                                CAST(1000*Rhen_Rate_Plan*Rhen_Factor AS INTEGER) AS "Rhen_Rate_Plan_UEDC",
+
+                CAST(1000*Alk_Rate_Act AS INTEGER) AS Alk_Rate_Act, 
+                                CAST(1000*Alk_Rate_Plan AS INTEGER) AS Alk_Rate_Plan, 
+                                Alk_Factor, 
+                                CASE WHEN Alk_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((Alk_Rate_Act - Alk_Rate_Plan)/Alk_Rate_Plan AS DECIMAL(10,4))
+                                END AS "Alk_UEDC__P",
+                                CAST(MAVG("Alk_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "Alk_UEDC__P_MAvg",
+                                CAST(1000*Alk_Rate_Act*Alk_Factor AS INTEGER) AS "Alk_Rate_Act_UEDC", 
+                                CAST(1000*Alk_Rate_Plan*Alk_Factor AS INTEGER) AS "Alk_Rate_Plan_UEDC",
+
+                CAST(1000*Butamer_Rate_Act AS INTEGER) AS Butamer_Rate_Act, 
+                                CAST(1000*Butamer_Rate_Plan AS INTEGER) AS Butamer_Rate_Plan, 
+                                Butamer_Factor, 
+                                CASE WHEN Butamer_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((Butamer_Rate_Act - Butamer_Rate_Plan)/Butamer_Rate_Plan AS DECIMAL(10,4))
+                                END AS "Butamer_UEDC__P",
+                                CAST(MAVG("Butamer_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "Butamer_UEDC__P_MAvg",
+                                CAST(1000*Butamer_Rate_Act*Butamer_Factor AS INTEGER) AS "Butamer_Rate_Act_UEDC", 
+                                CAST(1000*Butamer_Rate_Plan*Butamer_Factor AS INTEGER) AS "Butamer_Rate_Plan_UEDC",
+
+                CAST(1000*NHT_Rate_Act AS INTEGER) AS NHT_Rate_Act, 
+                                CAST(1000*NHT_Rate_Plan AS INTEGER) AS NHT_Rate_Plan, 
+                                NHT_Factor, 
+                                CASE WHEN NHT_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((NHT_Rate_Act - NHT_Rate_Plan)/NHT_Rate_Plan AS DECIMAL(10,4))
+                                END AS "NHT_UEDC__P",
+                                CAST(MAVG("NHT_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "NHT_UEDC__P_MAvg",
+                                CAST(1000*NHT_Rate_Act*NHT_Factor AS INTEGER) AS "NHT_Rate_Act_UEDC", 
+                                CAST(1000*NHT_Rate_Plan*NHT_Factor AS INTEGER) AS "NHT_Rate_Plan_UEDC",
+
+                CAST(1000*DHT_Rate_Act1 AS INTEGER) AS DHT_Rate_Act1, 
+                                CAST(1000*DHT_Rate_Act2 AS INTEGER) AS DHT_Rate_Act2,
+                                CAST(1000*DHT_Rate_Plan AS INTEGER) AS DHT_Rate_Plan, 
+                                DHT_Factor, 
+                                CASE WHEN DHT_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST(((DHT_Rate_Act1 + DHT_Rate_Act2) - DHT_Rate_Plan)/DHT_Rate_Plan AS DECIMAL(10,4))
+                                END AS "DHT_UEDC__P",
+                                CAST(MAVG("DHT_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "DHT_UEDC__P_MAvg",
+                                CAST(1000*(DHT_Rate_Act1+DHT_Rate_Act2)*DHT_Factor AS INTEGER) AS "DHT_Rate_Act_UEDC", 
+                                CAST(1000*DHT_Rate_Plan*DHT_Factor AS INTEGER) AS "DHT_Rate_Plan_UEDC",
+
+                CAST(1000*JHT_Rate_Act AS INTEGER) AS JHT_Rate_Act, 
+                                CAST(1000*JHT_Rate_Plan AS INTEGER) AS JHT_Rate_Plan, 
+                                JHT_Factor, 
+                                CASE WHEN JHT_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((JHT_Rate_Act - JHT_Rate_Plan)/JHT_Rate_Plan AS DECIMAL(10,4))
+                                END AS "JHT_UEDC__P",
+                                CAST(MAVG("JHT_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "JHT_UEDC__P_MAvg",
+                                CAST(1000*JHT_Rate_Act*JHT_Factor AS INTEGER) AS "JHT_Rate_Act_UEDC", 
+                                CAST(1000*JHT_Rate_Plan*JHT_Factor AS INTEGER) AS "JHT_Rate_Plan_UEDC",
+                                
+                CAST(1000*JetMer_Rate_Act AS INTEGER) AS JetMer_Rate_Act, 
+                                CAST(1000*JetMer_Rate_Plan AS INTEGER) AS JetMer_Rate_Plan, 
+                                JetMer_Factor, 
+                                CASE WHEN JetMer_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((JetMer_Rate_Act - JetMer_Rate_Plan)/JetMer_Rate_Plan AS DECIMAL(10,4))
+                                END AS "JetMer_UEDC__P",
+                                CAST(MAVG("JetMer_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "JetMer_UEDC__P_MAvg",
+                                CAST(1000*JetMer_Rate_Act*JetMer_Factor AS INTEGER) AS "JetMer_Rate_Act_UEDC", 
+                                CAST(1000*JetMer_Rate_Plan*JetMer_Factor AS INTEGER) AS "JetMer_Rate_Plan_UEDC",
+                                
+                CAST(1000*CGHT_Rate_Act1 AS INTEGER) AS CGHT_Rate_Act1, 
+                                CAST(1000*CGHT_Rate_Act2 AS INTEGER) AS CGHT_Rate_Act2,
+                                CAST(1000*CGHT_Rate_Plan AS INTEGER) AS CGHT_Rate_Plan, 
+                                CGHT_Factor, 
+                                CASE WHEN CGHT_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST(((CGHT_Rate_Act1 - CGHT_Rate_Act2) - CGHT_Rate_Plan)/CGHT_Rate_Plan AS DECIMAL(10,4))
+                                END AS "CGHT_UEDC__P",
+                                CAST(MAVG("CGHT_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) "CGHT_UEDC__P_MAvg",
+                                CAST(1000*(CGHT_Rate_Act1-CGHT_Rate_Act2)*CGHT_Factor AS INTEGER) AS "CGHT_Rate_Act_UEDC", 
+                                CAST(1000*CGHT_Rate_Plan*CGHT_Factor AS INTEGER) AS "CGHT_Rate_Plan_UEDC",
+                                
+                CAST(1000*BSU_Rate_Act AS INTEGER) AS BSU_Rate_Act, 
+                                CAST(1000*BSU_Rate_Plan AS INTEGER) AS BSU_Rate_Plan, 
+                                BSU_Factor, 
+                                CASE WHEN BSU_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((BSU_Rate_Act - BSU_Rate_Plan)/BSU_Rate_Plan AS DECIMAL(10,4))
+                                END AS "BSU_UEDC__P",
+                                CAST(MAVG("BSU_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "BSU_UEDC__P_MAvg",
+                                CAST(1000*BSU_Rate_Act*BSU_Factor AS INTEGER) AS "BSU_Rate_Act_UEDC", 
+                                CAST(1000*BSU_Rate_Plan*BSU_Factor AS INTEGER) AS "BSU_Rate_Plan_UEDC",
+                                
+                CAST(1000*BSUSplit_Rate_Act AS INTEGER) AS BSUSplit_Rate_Act, 
+                                CAST(1000*BSUSplit_Rate_Plan AS INTEGER) AS BSUSplit_Rate_Plan, 
+                                BSUSplit_Factor, 
+                                CASE WHEN BSUSplit_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((BSUSplit_Rate_Act - BSUSplit_Rate_Plan)/BSUSplit_Rate_Plan AS DECIMAL(10,4))
+                                END AS "BSUSplit_UEDC__P",
+                                CAST(MAVG("BSUSplit_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "BSUSplit_UEDC__P_MAvg",
+                                CAST(1000*BSUSplit_Rate_Act*BSUSplit_Factor AS INTEGER) AS "BSUSplit_Rate_Act_UEDC", 
+                                CAST(1000*BSUSplit_Rate_Plan*BSUSplit_Factor AS INTEGER) AS "BSUSplit_Rate_Plan_UEDC"
+                
+FROM    
+                (SELECT ref_prod_location, trans_date, 
+                                MAX(CASE WHEN tag_id = 'cpscrude' THEN ZEROIFNULL(AvgTagValue) END) AS "CPS_Crude_Rate_Act",
+                                MAX(CASE WHEN tag_id = 'cpscrude' THEN UEDC_Plan END) AS "CPS_Crude_Rate_Plan",
+                                MAX(CASE WHEN tag_id = 'cpscrude' THEN UEDC_Factor END) AS "CPS_Crude_Factor",
+                                MAX(CASE WHEN tag_id = '16FC202.pv' THEN ZEROIFNULL(AvgTagValue) END) AS "NO6_Crude_Rate_Act",
+                                MAX(CASE WHEN tag_id = '16FC202.pv' THEN UEDC_Plan END) AS "NO6_Crude_Rate_Plan",
+                                MAX(CASE WHEN tag_id = '16FC202.pv' THEN UEDC_Factor END) AS "NO6_Crude_Factor",    
+                                MAX(CASE WHEN tag_id = '30FC104.pv' THEN ZEROIFNULL(AvgTagValue) END) AS "FCC_Rate_Act",
+                                MAX(CASE WHEN tag_id = '30FC104.pv' THEN UEDC_Plan END) AS "FCC_Rate_Plan",
+                                MAX(CASE WHEN tag_id = '30FC104.pv' THEN UEDC_Factor END) AS "FCC_Factor",                
+                                MAX(CASE WHEN tag_id = '81FC342.pv' THEN ZEROIFNULL(AvgTagValue) END) AS "Alk_Rate_Act",
+                                MAX(CASE WHEN tag_id = '81FC342.pv' THEN UEDC_Plan END) AS "Alk_Rate_Plan",
+                                MAX(CASE WHEN tag_id = '81FC342.pv' THEN UEDC_Factor END) AS "Alk_Factor",  
+                                MAX(CASE WHEN tag_id = '70FC124.pv' THEN ZEROIFNULL(AvgTagValue) END) AS "Butamer_Rate_Act",
+                                MAX(CASE WHEN tag_id = '70FC124.pv' THEN UEDC_Plan END) AS "Butamer_Rate_Plan",
+                                MAX(CASE WHEN tag_id = '70FC124.pv' THEN UEDC_Factor END) AS "Butamer_Factor",          
+                                MAX(CASE WHEN tag_id = '41FC124.pv' THEN ZEROIFNULL(AvgTagValue) END) AS "NHT_Rate_Act",
+                                MAX(CASE WHEN tag_id = '41FC124.pv' THEN UEDC_Plan END) AS "NHT_Rate_Plan",
+                                MAX(CASE WHEN tag_id = '41FC124.pv' THEN UEDC_Factor END) AS "NHT_Factor",                
+                                MAX(CASE WHEN tag_id = '41FC410.pv' THEN ZEROIFNULL(AvgTagValue) END) AS "Rhen_Rate_Act",
+                                MAX(CASE WHEN tag_id = '41FC410.pv' THEN UEDC_Plan END) AS "Rhen_Rate_Plan",
+                                MAX(CASE WHEN tag_id = '41FC410.pv' THEN UEDC_Factor END) AS "Rhen_Factor",
+                                MAX(CASE WHEN tag_id = '43FC113.pv' THEN ZEROIFNULL(AvgTagValue) END) AS "BSU_Rate_Act",
+                                MAX(CASE WHEN tag_id = '43FC113.pv' THEN UEDC_Plan END) AS "BSU_Rate_Plan",
+                                MAX(CASE WHEN tag_id = '43FC113.pv' THEN UEDC_Factor END) AS "BSU_Factor",                
+                                MAX(CASE WHEN tag_id = '43FC114.pv' THEN ZEROIFNULL(AvgTagValue) END) AS "BSUSplit_Rate_Act",
+                                MAX(CASE WHEN tag_id = '43FC114.pv' THEN UEDC_Plan END) AS "BSUSplit_Rate_Plan",
+                                MAX(CASE WHEN tag_id = '43FC114.pv' THEN UEDC_Factor END) AS "BSUSplit_Factor",         
+                                MAX(CASE WHEN tag_id = '38FC102.pv' THEN ZEROIFNULL(AvgTagValue) END) AS "JHT_Rate_Act",
+                                MAX(CASE WHEN tag_id = '38FC102.pv' THEN UEDC_Plan END) AS "JHT_Rate_Plan",
+                                MAX(CASE WHEN tag_id = '38FC102.pv' THEN UEDC_Factor END) AS "JHT_Factor",
+                                MAX(CASE WHEN tag_id = '01FI163.PV' THEN ZEROIFNULL(AvgTagValue) END) AS "JetMer_Rate_Act",
+                                MAX(CASE WHEN tag_id = '01FI163.PV' THEN UEDC_Plan END) AS "JetMer_Rate_Plan",
+                                MAX(CASE WHEN tag_id = '01FI163.PV' THEN UEDC_Factor END) AS "JetMer_Factor",
+                                MAX(CASE WHEN tag_id = '39fc246.pv' THEN ZEROIFNULL(AvgTagValue) END) AS "DHT_Rate_Act1",
+                                MAX(CASE WHEN tag_id = '39FC245.pv' THEN ZEROIFNULL(AvgTagValue) END) AS "DHT_Rate_Act2",
+                                MAX(CASE WHEN tag_id = '39FC245.pv' THEN UEDC_Plan END) AS "DHT_Rate_Plan",
+                                MAX(CASE WHEN tag_id = '39FC245.pv' THEN UEDC_Factor END) AS "DHT_Factor",
+                                MAX(CASE WHEN tag_id = '89FC101A.pv' THEN ZEROIFNULL(AvgTagValue) END) AS "CGHT_Rate_Act1",
+                                MAX(CASE WHEN tag_id = '89FC302.pv' THEN ZEROIFNULL(AvgTagValue) END) AS "CGHT_Rate_Act2",
+                                MAX(CASE WHEN tag_id = '89FC302.pv' THEN UEDC_Plan END) AS "CGHT_Rate_Plan",
+                                MAX(CASE WHEN tag_id = '89FC302.pv' THEN UEDC_Factor END) AS "CGHT_Factor"
+                FROM
+                                (SELECT               PI.Ref_Prod_Location, Trans_Date, pi.Tag_ID, unit, MAX(uedc_plan) UEDC_Plan, MAX(complex_factor) UEDC_Factor, 
+                                                AVG(Tag_Value) AvgTagValue
+                                FROM    prod_edw_base_views.PI
+                                INNER JOIN prod_edw_base_views.refops_uedc
+                                                ON pi.ref_prod_location = refops_uedc.ref_prod_location
+                                                AND pi.tag_id = refops_uedc.tag_id
+                                                AND pi.trans_date = refops_uedc.eff_date
+                                WHERE trans_date BETWEEN :Begin_Date AND :End_Date
+                                                AND PI.Ref_Prod_Location = 'El Paso Refinery'
+                                GROUP BY PI.Ref_Prod_Location, Trans_Date, pi.Tag_ID, unit) AS tmpRateData1
+                GROUP BY ref_prod_location, trans_date) AS tmpRateData2
+ORDER BY Ref_Prod_Location, Trans_Date;
+
+);
+--------------------------------------------------------------------------------
+
+REPLACE MACRO prod_refops_views.M_UEDC_GAL (Begin_Date DATE, End_Date DATE) AS
+	(
+
+SELECT ref_prod_location, trans_date,
+                CAST((CRUDE_FEED_Rate_Act_UEDC+FCC_Rate_Act_UEDC+NHT_FEED_Rate_Act_UEDC+KHT_FEED_Rate_Act_UEDC+DHT_FEED_Rate_Act_UEDC+
+                                ALKYLATE_Rate_Act_UEDC+PLATFORMER_Rate_Act_UEDC+MSAT_SPLIT_Rate_Act_UEDC) AS DECIMAL(10,4)) AS "Total_Rate_Act_UEDC",
+
+                CAST((CRUDE_FEED_Rate_Plan_UEDC+FCC_Rate_Plan_UEDC+NHT_FEED_Rate_Plan_UEDC+KHT_FEED_Rate_Plan_UEDC+DHT_FEED_Rate_Plan_UEDC+
+                                ALKYLATE_Rate_Plan_UEDC+PLATFORMER_Rate_Plan_UEDC+MSAT_SPLIT_Rate_Plan_UEDC) AS DECIMAL(10,4)) AS "Total_Rate_Plan_UEDC",
+
+                CAST((Total_Rate_Act_UEDC - Total_Rate_Plan_UEDC)/Total_Rate_Plan_UEDC AS DECIMAL(10,4)) AS "Total_Process_Unit__P", 
+                                CAST(MAVG("Total_Process_Unit__P", 365,trans_date) AS DECIMAL(10,4)) AS "Total_Process_Unit__P_MAvg",
+                                                
+                CAST(CRUDE_FEED_Rate_Act AS INTEGER) AS CRUDE_FEED_Rate_Act,
+                                CAST(1000*CRUDE_FEED_Rate_Plan AS INTEGER) AS CRUDE_FEED_Rate_Plan,
+                                CRUDE_FEED_Factor, 
+                                CASE WHEN CRUDE_FEED_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((CRUDE_FEED_Rate_Act - 1000*CRUDE_FEED_Rate_Plan)/(1000*CRUDE_FEED_Rate_Plan) AS DECIMAL(10,4))
+                                END AS "CRUDE_FEED_UEDC__P",
+                                CAST(MAVG("CRUDE_FEED_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "CRUDE_FEED_UEDC__P_MAvg",
+                                CAST(CRUDE_FEED_Rate_Act*CRUDE_FEED_Factor AS INTEGER) AS "CRUDE_FEED_Rate_Act_UEDC", 
+                                CAST(1000*CRUDE_FEED_Rate_Plan*CRUDE_FEED_Factor AS INTEGER) AS "CRUDE_FEED_Rate_Plan_UEDC",
+
+            	 CAST(FCC_Rate_Act AS INTEGER) AS FCC_Rate_Act,
+                                CAST(1000*FCC_Rate_Plan AS INTEGER) AS FCC_Rate_Plan,
+                                FCC_Factor, 
+                                CASE WHEN FCC_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((FCC_Rate_Act - 1000*FCC_Rate_Plan)/(1000*FCC_Rate_Plan) AS DECIMAL(10,4))
+                                END AS "FCC_UEDC__P",
+                                CAST(MAVG("FCC_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "FCC_UEDC__P_MAvg",
+                                CAST(FCC_Rate_Act*FCC_Factor AS INTEGER) AS "FCC_Rate_Act_UEDC", 
+                                CAST(1000*FCC_Rate_Plan*FCC_Factor AS INTEGER) AS "FCC_Rate_Plan_UEDC",
+
+                CAST(NHT_FEED_Rate_Act AS INTEGER) AS NHT_FEED_Rate_Act,
+                                CAST(1000*NHT_FEED_Rate_Plan AS INTEGER) AS NHT_FEED_Rate_Plan,
+                                NHT_FEED_Factor, 
+                                CASE WHEN NHT_FEED_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((NHT_FEED_Rate_Act - 1000*NHT_FEED_Rate_Plan)/(1000*NHT_FEED_Rate_Plan) AS DECIMAL(10,4))
+                                END AS "NHT_FEED_UEDC__P",
+                                CAST(MAVG("NHT_FEED_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "NHT_FEED_UEDC__P_MAvg",
+                                CAST(NHT_FEED_Rate_Act*NHT_FEED_Factor AS INTEGER) AS "NHT_FEED_Rate_Act_UEDC", 
+                                CAST(1000*NHT_FEED_Rate_Plan*NHT_FEED_Factor AS INTEGER) AS "NHT_FEED_Rate_Plan_UEDC",
+
+                CAST(KHT_FEED_Rate_Act AS INTEGER) AS KHT_FEED_Rate_Act,
+                                CAST(1000*KHT_FEED_Rate_Plan AS INTEGER) AS KHT_FEED_Rate_Plan,
+                                KHT_FEED_Factor, 
+                                CASE WHEN KHT_FEED_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((KHT_FEED_Rate_Act - 1000*KHT_FEED_Rate_Plan)/(1000*KHT_FEED_Rate_Plan) AS DECIMAL(10,4))
+                                END AS "KHT_FEED_UEDC__P",
+                                CAST(MAVG("KHT_FEED_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "KHT_FEED_UEDC__P_MAvg",
+                                CAST(KHT_FEED_Rate_Act*KHT_FEED_Factor AS INTEGER) AS "KHT_FEED_Rate_Act_UEDC", 
+                                CAST(1000*KHT_FEED_Rate_Plan*KHT_FEED_Factor AS INTEGER) AS "KHT_FEED_Rate_Plan_UEDC",
+
+                CAST(DHT_FEED_Rate_Act AS INTEGER) AS DHT_FEED_Rate_Act,
+                                CAST(1000*DHT_FEED_Rate_Plan AS INTEGER) AS DHT_FEED_Rate_Plan,
+                                DHT_FEED_Factor, 
+                                CASE WHEN DHT_FEED_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((DHT_FEED_Rate_Act - 1000*DHT_FEED_Rate_Plan)/(1000*DHT_FEED_Rate_Plan) AS DECIMAL(10,4))
+                                END AS "DHT_FEED_UEDC__P",
+                                CAST(MAVG("DHT_FEED_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "DHT_FEED_UEDC__P_MAvg",
+                                CAST(DHT_FEED_Rate_Act*DHT_FEED_Factor AS INTEGER) AS "DHT_FEED_Rate_Act_UEDC", 
+                                CAST(1000*DHT_FEED_Rate_Plan*DHT_FEED_Factor AS INTEGER) AS "DHT_FEED_Rate_Plan_UEDC",
+
+                CAST(ALKYLATE_Rate_Act AS INTEGER) AS ALKYLATE_Rate_Act,
+                                CAST(1000*ALKYLATE_Rate_Plan AS INTEGER) AS ALKYLATE_Rate_Plan,
+                                ALKYLATE_Factor, 
+                                CASE WHEN ALKYLATE_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((ALKYLATE_Rate_Act - 1000*ALKYLATE_Rate_Plan)/(1000*ALKYLATE_Rate_Plan) AS DECIMAL(10,4))
+                                END AS "ALKYLATE_UEDC__P",
+                                CAST(MAVG("ALKYLATE_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "ALKYLATE_UEDC__P_MAvg",
+                                CAST(ALKYLATE_Rate_Act*ALKYLATE_Factor AS INTEGER) AS "ALKYLATE_Rate_Act_UEDC", 
+                                CAST(1000*ALKYLATE_Rate_Plan*ALKYLATE_Factor AS INTEGER) AS "ALKYLATE_Rate_Plan_UEDC",
+
+                CAST(PLATFORMER_Rate_Act AS INTEGER) AS PLATFORMER_Rate_Act,
+                                CAST(1000*PLATFORMER_Rate_Plan AS INTEGER) AS PLATFORMER_Rate_Plan,
+                                PLATFORMER_Factor, 
+                                CASE WHEN PLATFORMER_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((PLATFORMER_Rate_Act - 1000*PLATFORMER_Rate_Plan)/(1000*PLATFORMER_Rate_Plan) AS DECIMAL(10,4))
+                                END AS "PLATFORMER_UEDC__P",
+                                CAST(MAVG("PLATFORMER_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "PLATFORMER_UEDC__P_MAvg",
+                                CAST(PLATFORMER_Rate_Act*PLATFORMER_Factor AS INTEGER) AS "PLATFORMER_Rate_Act_UEDC", 
+                                CAST(1000*PLATFORMER_Rate_Plan*PLATFORMER_Factor AS INTEGER) AS "PLATFORMER_Rate_Plan_UEDC",
+
+                CAST(MSAT_SPLIT_Rate_Act AS INTEGER) AS MSAT_SPLIT_Rate_Act,
+                                CAST(1000*MSAT_SPLIT_Rate_Plan AS INTEGER) AS MSAT_SPLIT_Rate_Plan,
+                                MSAT_SPLIT_Factor, 
+                                CASE WHEN MSAT_SPLIT_Rate_Plan = 0 
+                                                THEN CAST(0 AS DECIMAL(10,4))
+                                ELSE
+                                                CAST((MSAT_SPLIT_Rate_Act - 1000*MSAT_SPLIT_Rate_Plan)/(1000*MSAT_SPLIT_Rate_Plan) AS DECIMAL(10,4))
+                                END AS "MSAT_SPLIT_UEDC__P",
+                                CAST(MAVG("MSAT_SPLIT_UEDC__P", 365,trans_date) AS DECIMAL(10,4)) AS "MSAT_SPLIT_UEDC__P_MAvg",
+                                CAST(MSAT_SPLIT_Rate_Act*MSAT_SPLIT_Factor AS INTEGER) AS "MSAT_SPLIT_Rate_Act_UEDC", 
+                                CAST(1000*MSAT_SPLIT_Rate_Plan*MSAT_SPLIT_Factor AS INTEGER) AS "MSAT_SPLIT_Rate_Plan_UEDC"
+
+FROM    
+                (SELECT ref_prod_location, trans_date, 
+                                MAX(CASE WHEN tag_id = 'CRFC102.PV' THEN ZEROIFNULL(AvgTagValue) END) AS "Crude_Feed_Rate_Act",
+                                MAX(CASE WHEN tag_id = 'CRFC102.PV' THEN UEDC_Plan END) AS "Crude_Feed_Rate_Plan",
+                                MAX(CASE WHEN tag_id = 'CRFC102.PV' THEN UEDC_Factor END) AS "Crude_Feed_Factor",
+                                MAX(CASE WHEN tag_id = 'FCFC401.PV' THEN ZEROIFNULL(AvgTagValue) END) AS "FCC_Rate_Act",
+                                MAX(CASE WHEN tag_id = 'FCFC401.PV' THEN UEDC_Plan END) AS "FCC_Rate_Plan",
+                                MAX(CASE WHEN tag_id = 'FCFC401.PV' THEN UEDC_Factor END) AS "FCC_Factor",                
+                                MAX(CASE WHEN tag_id = 'NHFI221.PV' THEN ZEROIFNULL(AvgTagValue) END) AS "NHT_Feed_Rate_Act",
+                                MAX(CASE WHEN tag_id = 'NHFI221.PV' THEN UEDC_Plan END) AS "NHT_Feed_Rate_Plan",
+                                MAX(CASE WHEN tag_id = 'NHFI221.PV' THEN UEDC_Factor END) AS "NHT_Feed_Factor",    
+                                MAX(CASE WHEN tag_id = 'D_FT_105.PV' THEN ZEROIFNULL(AvgTagValue) END) AS "KHT_Feed_Rate_Act",
+                                MAX(CASE WHEN tag_id = 'D_FT_105.PV' THEN UEDC_Plan END) AS "KHT_Feed_Rate_Plan",
+                                MAX(CASE WHEN tag_id = 'D_FT_105.PV' THEN UEDC_Factor END) AS "KHT_Feed_Factor",  
+                                MAX(CASE WHEN tag_id = 'D_FI_550.PV' THEN ZEROIFNULL(AvgTagValue) END) AS "DHT_Feed_Rate_Act",
+                                MAX(CASE WHEN tag_id = 'D_FI_550.PV' THEN UEDC_Plan END) AS "DHT_Feed_Rate_Plan",
+                                MAX(CASE WHEN tag_id = 'D_FI_550.PV' THEN UEDC_Factor END) AS "DHT_Feed_Factor",          
+                                MAX(CASE WHEN tag_id = 'A_FI_146.PV' THEN ZEROIFNULL(AvgTagValue) END) AS "Alkylate_Rate_Act",
+                                MAX(CASE WHEN tag_id = 'A_FI_146.PV' THEN UEDC_Plan END) AS "Alkylate_Rate_Plan",
+                                MAX(CASE WHEN tag_id = 'A_FI_146.PV' THEN UEDC_Factor END) AS "Alkylate_Factor",
+                                MAX(CASE WHEN tag_id = 'P_FI_009.PV' THEN ZEROIFNULL(AvgTagValue) END) AS "Platformer_Rate_Act",
+                                MAX(CASE WHEN tag_id = 'P_FI_009.PV' THEN UEDC_Plan END) AS "Platformer_Rate_Plan",
+                                MAX(CASE WHEN tag_id = 'P_FI_009.PV' THEN UEDC_Factor END) AS "Platformer_Factor",                
+                                MAX(CASE WHEN tag_id = 'ISFC102.calc' THEN ZEROIFNULL(AvgTagValue) END) AS "MSAT_Split_Rate_Act",
+                                MAX(CASE WHEN tag_id = 'ISFC102.calc' THEN UEDC_Plan END) AS "MSAT_Split_Rate_Plan",
+                                MAX(CASE WHEN tag_id = 'ISFC102.calc' THEN UEDC_Factor END) AS "MSAT_Split_Factor"
+                FROM
+                                (SELECT               PI.Ref_Prod_Location, Trans_Date, pi.Tag_ID, unit, MAX(uedc_plan) UEDC_Plan, MAX(complex_factor) UEDC_Factor, 
+                                                AVG(Tag_Value) AvgTagValue
+                                FROM    prod_edw_base_views.PI
+                                INNER JOIN prod_edw_base_views.refops_uedc
+                                                ON pi.ref_prod_location = refops_uedc.ref_prod_location
+                                                AND pi.tag_id = refops_uedc.tag_id
+                                                AND pi.trans_date = refops_uedc.eff_date
+                                WHERE trans_date BETWEEN :Begin_Date AND :End_Date
+                                                AND PI.Ref_Prod_Location = 'Gallup'
+                                                AND PI.Tag_ID IN ('CRFC102.PV','FCFC401.PV','NHFI221.PV','D_FT_105.PV','D_FI_550.PV','A_FI_146.PV','P_FI_009.PV','ISFC102.calc')
+                                GROUP BY PI.Ref_Prod_Location, Trans_Date, pi.Tag_ID, unit) AS tmpRateData1
+                GROUP BY ref_prod_location, trans_date) AS tmpRateData2
+ORDER BY Ref_Prod_Location, Trans_Date;
+
+);
+--------------------------------------------------------------------------------
+
+REPLACE VIEW PROD_REFOPS_VIEWS.aps_atorionproductfeeds AS LOCKING ROW ACCESS
+SELECT * FROM PROD_EDW_BASE_views.aps_atorionproductfeeds;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW PROD_REFOPS_VIEWS.aps_atorionunitfeeds AS LOCKING ROW ACCESS
+SELECT * FROM PROD_EDW_BASE_views.aps_atorionunitfeeds;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.aps_crdruns AS LOCKING ROW ACCESS
+SELECT * FROM prod_edw_base_views.aps_crdruns;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW PROD_REFOPS_VIEWS.aps_crudes AS LOCKING ROW ACCESS
+SELECT * FROM PROD_EDW_BASE_views.aps_crudes;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.aps_events AS LOCKING ROW ACCESS
+SELECT * FROM prod_edw_base_views.aps_events;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.aps_event_dest_tanks AS LOCKING ROW ACCESS
+SELECT * FROM prod_edw_base_views.aps_event_dest_tanks;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.aps_event_source_tanks AS LOCKING ROW ACCESS
+SELECT * FROM prod_edw_base_views.aps_event_source_tanks;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.aps_ev_daily AS LOCKING ROW ACCESS
+SELECT * FROM PROD_EDW_BASE_views.aps_ev_daily;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW  PROD_REFOPS_VIEWS.aps_km_fwdshipments
+AS LOCKING ROW ACCESS
+SELECT	*
+FROM	prod_edw_base_VIEWS.aps_km_fwdshipments;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW  PROD_REFOPS_VIEWS.aps_km_inventory
+AS LOCKING ROW ACCESS
+SELECT	*
+FROM	PROD_EDW_BASE_VIEWS.aps_km_inventory;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW  PROD_REFOPS_VIEWS.aps_km_receipts
+AS LOCKING ROW ACCESS
+SELECT	*
+FROM	PROD_EDW_BASE_VIEWS.aps_km_receipts;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW  PROD_REFOPS_VIEWS.aps_km_shipments
+AS LOCKING ROW ACCESS
+SELECT	*
+FROM	PROD_EDW_BASE_VIEWS.aps_km_shipments;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.aps_pl AS LOCKING ROW ACCESS
+SELECT * FROM prod_edw_base_views.aps_pl;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.aps_pl_pipeline AS LOCKING ROW ACCESS
+SELECT * FROM prod_edw_base_views.aps_pl_pipeline;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.aps_pl_pipeline_comp AS LOCKING ROW ACCESS
+SELECT * FROM prod_edw_base_views.aps_pl_pipeline_comp;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.aps_pl_pipeline_dest AS LOCKING ROW ACCESS
+SELECT * FROM prod_edw_base_views.aps_pl_pipeline_dest;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.aps_streams AS LOCKING ROW ACCESS
+SELECT * FROM PROD_EDW_BASE_views.aps_streams;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.aps_strms AS LOCKING ROW ACCESS
+SELECT * FROM prod_edw_base_views.aps_strms;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.aps_tanks AS LOCKING ROW ACCESS
+SELECT * FROM prod_edw_base_views.aps_tanks;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.aps_tanks_main AS LOCKING ROW ACCESS
+SELECT * FROM PROD_EDW_BASE_views.aps_tanks_main;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.aps_tran_modes AS LOCKING ROW ACCESS
+SELECT * FROM PROD_EDW_BASE_views.aps_tran_modes;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW PROD_REFOPS_VIEWS.aps_units AS LOCKING ROW ACCESS
+SELECT * FROM PROD_EDW_BASE_views.aps_units;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW  PROD_REFOPS_VIEWS.aps_vfp_route
+AS LOCKING ROW ACCESS
+SELECT	*
+FROM	PROD_EDW_BASE_VIEWS.aps_vfp_route;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW  PROD_REFOPS_VIEWS.aps_vfp_xref
+AS LOCKING ROW ACCESS
+SELECT	*
+FROM	PROD_EDW_BASE_VIEWS.aps_vfp_xref;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.aps_ztanks AS LOCKING ROW ACCESS
+SELECT * FROM PROD_EDW_BASE_views.aps_ztanks;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW PROD_REFOPS_VIEWS.BACKCAST AS 
+                LOCKING ROW ACCESS
+SELECT  * FROM   prod_edw_base_views.BACKCAST;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Blend AS LOCKING ROW ACCESS SELECT * FROM	PROD_EDW_BASE_VIEWS.BLEND;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.BlendRecipe AS LOCKING ROW ACCESS SELECT * FROM	PROD_EDW_BASE_VIEWS.BLENDRECIPE;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Blend_C2P
+	AS LOCKING ROW ACCESS
+SELECT	*
+FROM	PROD_EDW_BASE_VIEWS.Blend_C2P;
+--------------------------------------------------------------------------------
+
+--******************************
+
+REPLACE VIEW PROD_REFOPS_VIEWS.BLEND_GAL_ETOHUPLIFT
+	AS LOCKING ROW ACCESS 
+	SELECT * FROM	PROD_EDW_BASE_VIEWS.BLEND_GAL_ETOHUPLIFT;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW PROD_REFOPS_VIEWS.BLEND_GAL_RVPOCTANE_PCTR
+	AS LOCKING ROW ACCESS 
+	SELECT * FROM	PROD_EDW_BASE_VIEWS.BLEND_GAL_RVPOCTANE_PCTR;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW PROD_REFOPS_VIEWS.BLEND_GAL_RVPOCTANE_PPL
+	AS LOCKING ROW ACCESS 
+	SELECT * FROM	PROD_EDW_BASE_VIEWS.BLEND_GAL_RVPOCTANE_PPL;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.BLEND_JETGIVEAWAY_EPA AS 
+                LOCKING ROW ACCESS
+SELECT  * FROM   prod_edw_base_views.BLEND_JETGIVEAWAY_EPA;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW PROD_REFOPS_VIEWS.Blend_Pctr
+	AS LOCKING ROW ACCESS
+SELECT* FROM	PROD_EDW_BASE_VIEWS.BLEND_PCTR;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW PROD_REFOPS_VIEWS.BLEND_PREDICTEDVALUE
+AS LOCKING ROW ACCESS 
+SELECT * FROM	PROD_EDW_BASE_VIEWS.BLEND_PREDICTEDVALUE;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.BLEND_ULSDGIVEAWAY_EPA AS 
+                LOCKING ROW ACCESS
+SELECT  * FROM   prod_edw_base_views.BLEND_ULSDGIVEAWAY_EPA;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.BLEND_ULSDGIVEAWAY_GAL AS 
+                LOCKING ROW ACCESS
+SELECT  * FROM   prod_edw_base_views.BLEND_ULSDGIVEAWAY_GAL;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW PROD_REFOPS_VIEWS.BLEND_V5 AS 
+                LOCKING ROW ACCESS
+SELECT  * FROM   prod_edw_base_views.BLEND_V5;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW prod_refops_views.BLEND_V6 AS 
+                LOCKING ROW ACCESS
+SELECT  * FROM   prod_edw_base_views.BLEND_V6;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW  PROD_REFOPS_VIEWS.BOL_G3 AS LOCKING ROW ACCESS
+SELECT  * FROM PROD_EDW_BASE_VIEWS.BOL_G3;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.lab_results AS 
+                LOCKING ROW ACCESS
+SELECT  * FROM                PROD_EDW_BASE_VIEWS.lab_results;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Lifting AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.LIFTING;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Master AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.MASTER;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.MBO_Events AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.MBO_EVENTS;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.MBO_Events_Publish 
+AS LOCKING ROW ACCESS 
+SELECT * FROM PROD_EDW_BASE_VIEWS.MBO_EVENTS_PUBLISH;
+--------------------------------------------------------------------------------
+
+Replace VIEW prod_refops_views.MBO_Events_Publish_AB AS 
+	LOCKING ROW ACCESS
+SELECT * FROM PROD_EDW_BASE_views.MBO_Events_Publish_AB;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.MBO_Event_Resources AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.MBO_EVENT_RESOURCES;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.MBO_Event_Tanks AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.MBO_EVENT_TANKS;
+--------------------------------------------------------------------------------
+
+Replace View  PROD_REFOPS_VIEWS.MBO_EV_Daily
+AS LOCKING ROW ACCESS
+SELECT	*
+FROM		PROD_EDW_BASE_VIEWS.MBO_EV_Daily;
+--------------------------------------------------------------------------------
+
+Replace View  PROD_REFOPS_VIEWS.MBO_Out_Ship
+AS LOCKING ROW ACCESS
+SELECT	*
+FROM		PROD_EDW_BASE_VIEWS.MBO_Out_Ship;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.MBO_Products AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.MBO_PRODUCTS;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.MBO_Qualities AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.MBO_Qualities;
+--------------------------------------------------------------------------------
+
+Replace VIEW prod_refops_views.MBO_Qualities_AB AS 
+	LOCKING ROW ACCESS
+SELECT * FROM PROD_EDW_BASE_views.MBO_Qualities_AB;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.MBO_Specs AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.MBO_Specs;
+--------------------------------------------------------------------------------
+
+Replace View  PROD_REFOPS_VIEWS.MBO_Tank_Info
+AS LOCKING ROW ACCESS
+SELECT	*
+FROM		PROD_EDW_BASE_VIEWS.MBO_Tank_Info;
+--------------------------------------------------------------------------------
+
+Replace View  PROD_REFOPS_VIEWS.MBO_Trend_Limit
+AS LOCKING ROW ACCESS
+SELECT	*
+FROM		PROD_EDW_BASE_VIEWS.MBO_Trend_Limit;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW PROD_REFOPS_VIEWS.Microload 
+	AS LOCKING ROW ACCESS 
+	SELECT * FROM	prod_edw_base_VIEWS.Microload;
+--------------------------------------------------------------------------------
+
+REPLACE	VIEW prod_refops_views.Microload_Assay  AS 
+	LOCKING ROW ACCESS
+SELECT * FROM PROD_EDW_BASE_views.Microload_Assay;
+--------------------------------------------------------------------------------
+
+REPLACE	VIEW PROD_REFOPS_VIEWS.Microload_XREF  AS 
+	LOCKING ROW ACCESS
+SELECT * FROM prod_edw_base_Views.Microload_XREF;
+--------------------------------------------------------------------------------
+
+REPLACE	VIEW PROD_REFOPS_VIEWS.MOVEMENT
+	AS LOCKING ROW ACCESS
+	SELECT *
+	FROM prod_edw_base_VIEWS.Movement
+;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW PROD_REFOPS_VIEWS.PI 
+AS LOCKING ROW ACCESS 
+SELECT * FROM PROD_EDW_BASE_VIEWS.PI;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Pipeline AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.Pipeline;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.PIPELINECR_SCHED 
+	AS LOCKING ROW
+	ACCESS
+SELECT	 * FROM	PROD_EDW_BASE_views.PipelineCR_Sched;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Pipelinecr_Sched_Dcd AS 
+	LOCKING ROW ACCESS
+SELECT * FROM PROD_EDW_BASE_VIEWS.Pipelinecr_Sched_Dcd;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.PipelineSched AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.PipelineSched;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Pipeline_Sched AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.Pipeline_Sched;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.PI_Audit AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.PI_Audit;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.PI_Corrected AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.PI_Corrected;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.PI_Desc_Units AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.PI_Desc_Units;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.PI_Material
+AS LOCKING ROW ACCESS
+SELECT * FROM PROD_EDW_BASE_VIEWS.PI_Material;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW PROD_REFOPS_VIEWS.PI_Satellite 
+	AS 
+	LOCKING ROW
+	ACCESS
+	SELECT	* FROM	PROD_EDW_BASE_VIEWS.PI_SATELLITE;
+--------------------------------------------------------------------------------
+
+REPLACE VIEW PROD_REFOPS_VIEWS.PI_Satellite_Xref 
+	AS 
+	LOCKING ROW
+	ACCESS
+	SELECT	* FROM	PROD_EDW_BASE_VIEWS.PI_SATELLITE_XREF;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Production AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.Production;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Prod_Hier AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.Prod_Hier;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.PROD_UNION AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.Prod_Union;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Railcar AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.Railcar;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Refops AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.Refops;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Refops_Plan_Price AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.Refops_Plan_Price;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Refops_Plan_Price_Subcat4 AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.Refops_Plan_Price_Subcat4;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Refops_Plan_Production AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.Refops_Plan_Production;
+--------------------------------------------------------------------------------
+
+REPLACE	VIEW PROD_REFOPS_VIEWS.Refops_Plan_Target ( Ref_Prod_Location, Eff_Date, PI_Tag, Measurement_Type, Section,
+		NAME, Area, Plan_Value, Create_Dttm, Last_Update_Dttm ) AS 
+	LOCKING ROW	ACCESS
+	SELECT	Ref_Prod_Location, Eff_Date, PI_Tag, Measurement_Type, Section,
+		NAME, Area, Plan_Value, Create_Dttm, Last_Update_Dttm
+FROM	prod_edw_base_VIEWS.REFOPS_PLAN_TARGET;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Refops_PumpersLog AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.Refops_PumpersLog;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Ref_Product AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.Ref_Product;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Table_Eff_Date_Counts AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.Table_Eff_Date_Counts;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Tank AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.Tank;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Tank_Info AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.Tank_Info;
+--------------------------------------------------------------------------------
+
+Replace VIEW PROD_REFOPS_VIEWS.Terminal AS LOCKING ROW ACCESS SELECT * FROM PROD_EDW_BASE_VIEWS.Terminal;
